@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+  CLIENT
+}
+
+model User {
+  id               String         @id @unique @default(uuid())
+  name             String
+  email            String         @unique
+  password         String
+  githubId         String?        @unique @db.Text
+  googleId         String?        @unique @db.Text
+  verificationCode String?        @unique @db.Text
+  refreshTokens    RefreshToken[]
+  orders           Orders[]
+  role             Role           @default(CLIENT)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  UserCoupons      UserCoupons[]
+}
+
+model RefreshToken {
+  id          String   @id @unique @default(uuid())
+  hashedToken String
+  userId      String
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Products {
+  id          String             @id @unique @default(uuid())
+  name        String
+  photo       String?
+  price       String
+  description String             @db.Char(255)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  orders      ProductsOnOrders[]
+}
+
+model Orders {
+  id        String             @id @unique @default(uuid())
+  value     String
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  User      User?              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?
+  coupons   Coupons?           @relation(fields: [couponsId], references: [id])
+  couponsId String?
+  isPaid    Boolean            @default(false)
+  discount  String?
+  products  ProductsOnOrders[]
+}
+
+model Coupons {
+  id          String        @id @unique @default(uuid())
+  title       String
+  description String
+  value       String
+  revoked     Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Orders      Orders[]
+  UserCoupons UserCoupons[]
+}
+
+model UserCoupons {
+  id        String   @id @unique @default(uuid())
+  userId    String
+  User      User     @relation(fields: [userId], references: [id])
+  couponsId String
+  Coupons   Coupons  @relation(fields: [couponsId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductsOnOrders {
+  Products   Products @relation(fields: [productsId], references: [id])
+  productsId String
+  Orders     Orders   @relation(fields: [ordersId], references: [id])
+  ordersId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@id([productsId, ordersId])
+}
