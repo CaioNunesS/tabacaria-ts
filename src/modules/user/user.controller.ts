@@ -3,7 +3,7 @@ import {
   deleteUser,
   findAllUsers,
   findUserByEmail,
-  getUserById,
+  findUserById,
   updateUser,
 } from './user.service'
 
@@ -13,7 +13,7 @@ import httpStatus from 'http-status'
 export const profile = async (req: Request, res: Response) => {
   const { userId } = req.payload
 
-  const result = await getUserById(userId)
+  const result = await findUserById(userId)
 
   return res.json(result)
 }
@@ -28,7 +28,7 @@ export const findAll = async (req: Request, res: Response) => {
 
 export const findOne = async (req: Request, res: Response) => {
   const { userId } = req.params
-  const client = await getUserById(userId)
+  const client = await findUserById(userId)
   res.json(client)
 }
 
@@ -52,13 +52,13 @@ export const findOneByEmail = async (req: Request, res: Response) => {
 export const updateOne = async (req: Request, res: Response) => {
   const { userId } = req.params
   const { name, email, role } = req.body
-  const teste = {
+  const updatedUser = {
     name,
     email,
     role,
   }
 
-  const result = await updateUser(userId, teste)
+  const result = await updateUser(userId, updatedUser)
 
   res.json(result)
 }

@@ -59,7 +59,7 @@ export const createUser = async (user: userCreate) => {
 
 export const findAllUsers = async <Key extends keyof User>(
   filter: {
-    Id?: string
+    id?: string
     name?: string
     email?: string
   },
@@ -69,7 +69,14 @@ export const findAllUsers = async <Key extends keyof User>(
     sortBy?: string
     sortType?: 'asc' | 'desc'
   },
-  keys: Key[] = ['id', 'name', 'email', 'role'] as Key[],
+  keys: Key[] = [
+    'id',
+    'name',
+    'email',
+    'role',
+    'createdAt',
+    'updatedAt',
+  ] as Key[],
 ): Promise<Pick<User, Key>[]> => {
   const page = options.page ?? 1
   const limit = options.limit ?? 10
@@ -89,7 +96,7 @@ export const findAllUsers = async <Key extends keyof User>(
   return customer as Pick<User, Key>[]
 }
 
-export const getUserById = async <Key extends keyof User>(
+export const findUserById = async <Key extends keyof User>(
   id: string,
   keys: Key[] = [
     'id',
@@ -125,7 +132,7 @@ export const updateUser = async <Key extends keyof User>(
     'updatedAt',
   ] as Key[],
 ): Promise<updateUserResponse | null> => {
-  const user = await getUserById(userId, [
+  const user = await findUserById(userId, [
     'id',
     'name',
     'email',
@@ -134,7 +141,7 @@ export const updateUser = async <Key extends keyof User>(
     'updatedAt',
   ])
 
-  if (!user) throwError('Usuário não encontrado', 404)
+  if (!user) throwError('Usuário não encontrado', httpStatus.NOT_FOUND)
   const updatedUser = await db.user.update({
     where: { id: userId },
     data: updateBody,
@@ -144,7 +151,7 @@ export const updateUser = async <Key extends keyof User>(
 }
 
 export const deleteUser = async (userId: string): Promise<User> => {
-  const user = await getUserById(userId, ['id'])
+  const user = await findUserById(userId, ['id'])
 
   if (!user) throwError('Usuário não encontrado', httpStatus.NOT_FOUND)
 

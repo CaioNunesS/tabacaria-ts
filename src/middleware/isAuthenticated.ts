@@ -11,7 +11,7 @@ export const isAuthenticated = (
 
   if (!authorization) {
     res.status(401)
-    throwError('Un-Authorized', 401)
+    throwError('Não autorizado', 401)
   }
 
   try {

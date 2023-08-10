@@ -151,13 +151,15 @@ const returnResponse = async (user: User) => {
   const jwtId = uuidv4()
 
   const { accessToken, refreshToken } = generateTokens(user, jwtId)
-  await addRefreshTokenToWriteList({
-    jwtId,
-    refreshToken,
-    userId: user.id,
-  })
-  return {
-    accessToken,
-    refreshToken,
+  if (refreshToken) {
+    await addRefreshTokenToWriteList({
+      jwtId,
+      refreshToken,
+      userId: user.id,
+    })
+    return {
+      accessToken,
+      refreshToken,
+    }
   }
 }
