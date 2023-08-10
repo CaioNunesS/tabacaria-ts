@@ -105,7 +105,14 @@ export const findAllProducts = async <Key extends keyof Products>(
     sortBy?: string
     sortType?: 'asc' | 'desc'
   },
-  keys: Key[] = ['id', 'name', 'price', 'createdAt', 'updatedAt'] as Key[],
+  keys: Key[] = [
+    'id',
+    'name',
+    'price',
+    'photo',
+    'createdAt',
+    'updatedAt',
+  ] as Key[],
 ): Promise<Pick<Products, Key>[]> => {
   const page = options.page ?? 1
   const limit = options.limit ?? 10
@@ -152,4 +159,23 @@ export const updateProduct = async <Key extends keyof Products>(
     select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
   })
   return result as updateProductResponse | null
+}
+
+export const findProductByImageName = async <Key extends keyof Products>(
+  imageName: string,
+  keys: Key[] = [
+    'id',
+    'name',
+    'price',
+    'photo',
+    'description',
+    'createdAt',
+    'updatedAt',
+  ] as Key[],
+): Promise<Pick<Products, Key> | undefined> => {
+  const result = await db.products.findFirst({
+    where: { photo: { contains: imageName } },
+    select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
+  })
+  return result as unknown as Pick<Products, Key> | undefined
 }
