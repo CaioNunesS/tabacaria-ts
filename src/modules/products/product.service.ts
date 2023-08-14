@@ -59,7 +59,6 @@ export const findProductByName = async <Key extends keyof Products>(
     'updatedAt',
   ] as Key[],
 ): Promise<Pick<Products, Key> | undefined> => {
-  // try {
   const result = await db.products.findFirst({
     where: { name },
     select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),

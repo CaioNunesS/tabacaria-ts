@@ -4,7 +4,7 @@ import express, { json, urlencoded } from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet'
-import { notFound, erroHandler } from './middleware/index'
+import { notFound, erroHandler, logMiddleware } from './middleware/index'
 
 import routes from './routes'
 // import swaggerUi from '@fastify/swagger-ui'
@@ -17,6 +17,7 @@ app.use(morgan('dev'))
 app.use(helmet())
 app.use(json())
 app.use(urlencoded({ extended: true }))
+app.use(logMiddleware)
 
 app.use('/api/v1', routes)
 
