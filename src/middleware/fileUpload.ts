@@ -3,6 +3,8 @@ import crypto from 'crypto'
 import { resolve } from 'path'
 import { Request } from 'express'
 
+import { env } from '../env'
+
 import { AppError } from '../utils/index'
 
 export const diskStorage = multer.diskStorage({
@@ -22,7 +24,7 @@ export const diskStorage = multer.diskStorage({
 })
 
 export const limits = {
-  fileSize: parseInt(process.env.FILE_UPLOAD_SIZE_IN_BYTE!),
+  fileSize: parseInt(env.FILE_UPLOAD_SIZE_IN_BYTE),
 }
 
 export const imageFileFilter = (

@@ -6,6 +6,7 @@ import fileRoutes from './modules/files/fileUpload.routes'
 import couponRoutes from './modules/coupons/coupon.routes'
 import orderRoutes from './modules/orders/order.routes'
 import logRoutes from './modules/logs/logs.routes'
+import notificationRoutes from './modules/notifications/notification.routes'
 
 const routes = Router()
 
@@ -16,5 +17,6 @@ routes.use('/file', fileRoutes)
 routes.use('/coupon', couponRoutes)
 routes.use('/order', orderRoutes)
 routes.use('/log', logRoutes)
+routes.use('/notification', notificationRoutes)
 
 export default routes

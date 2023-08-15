@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { throwError } from '../utils/index'
 
+import { env } from '../env'
+
 export const isAuthenticated = (
   req: Request,
   res: Response,
@@ -22,14 +24,9 @@ export const isAuthenticated = (
         res.status(401).json('Token inválido')
       }
 
-      if (process.env.JWT_ACCESS_SECRET) {
-        const payload = jwt.verify(
-          token,
-          process.env.JWT_ACCESS_SECRET,
-        ) as jwt.JwtPayload
+      const payload = jwt.verify(token, env.JWT_ACCESS_SECRET) as jwt.JwtPayload
 
-        req.payload = payload
-      }
+      req.payload = payload
     }
   } catch (error: any) {
     res.status(401)

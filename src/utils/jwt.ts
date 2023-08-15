@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken'
 import { User } from '@prisma/client'
 
-const accessToken = process.env.JWT_ACCESS_SECRET || 'dhvbsufnisbfhwbfuiwjiofw'
-// const refreshSecret =
-//   process.env.JWT_REFRESH_SECRET || 'dhvbsufnisbfhwbfuiwjiofw'
+import { env } from '../env'
+
+const accessToken = env.JWT_ACCESS_SECRET
 
 export const generateAcessToken = (user: User) => {
-  if (process.env.JWT_ACCESS_SECRET) {
+  if (env.JWT_ACCESS_SECRET) {
     return jwt.sign({ userId: user.id }, accessToken, {
       expiresIn: '1d',
     })
@@ -14,14 +14,10 @@ export const generateAcessToken = (user: User) => {
 }
 
 export const generateRefreshToken = (user: User, jwtId: string) => {
-  if (process.env.JWT_REFRESH_SECRET) {
-    return jwt.sign(
-      { userId: user.id, jwtId },
-      process.env.JWT_REFRESH_SECRET,
-      {
-        expiresIn: '4h',
-      },
-    )
+  if (env.JWT_REFRESH_SECRET) {
+    return jwt.sign({ userId: user.id, jwtId }, env.JWT_REFRESH_SECRET, {
+      expiresIn: '4h',
+    })
   }
 }
 

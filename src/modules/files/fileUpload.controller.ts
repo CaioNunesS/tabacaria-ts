@@ -3,6 +3,8 @@ import { resolve } from 'path'
 import { existsSync } from 'fs'
 import { throwError } from '../../utils/index'
 
+import { env } from '../../env'
+
 import { deleteFile, fileUploadPhoto } from './fileUpload.service'
 
 export const fileUpload = async (req: Request, res: Response) => {
@@ -10,7 +12,7 @@ export const fileUpload = async (req: Request, res: Response) => {
   if (req.file) {
     const { filename }: Express.Multer.File = req.file
 
-    const file = `${process.env.URL_IMAGE}/${filename}`
+    const file = `${env.URL_IMAGE}/${filename}`
 
     await fileUploadPhoto({ file, productId })
     return res

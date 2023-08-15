@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { CustomError } from '../utils/'
 
+import { env } from '../env'
+
 export const erroHandler = (
   err: CustomError,
   req: Request,
@@ -19,7 +21,7 @@ export const erroHandler = (
   res.status(statusCode)
   res.json({
     message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? 'error' : err.stack,
+    stack: env.NODE_ENV === 'production' ? 'error' : err.stack,
   })
 
   return next()

@@ -10,7 +10,10 @@ import {
   generateTokens,
   comparePassword,
 } from '../../utils/index'
-import { createUser, findUserByEmail, getUserById } from '../user/user.service'
+
+import { env } from '../../env'
+
+import { createUser, findUserByEmail, findUserById } from '../user/user.service'
 
 type IAddRefreshTokenToWriteList = {
   jwtId: string
@@ -120,7 +123,7 @@ export const refreshToken = async ({ refreshToken }: IRefreshToken) => {
 
     const payload = jwt.verify(
       refreshToken,
-      process.env.JWT_REFRESH_SECRET || 'afahfbhafhaf',
+      env.JWT_REFRESH_SECRET || 'afahfbhafhaf',
     ) as JwtPayload
 
     const savedRefreshToken = await findRefreshTokenById(payload.jwtId)
@@ -133,7 +136,7 @@ export const refreshToken = async ({ refreshToken }: IRefreshToken) => {
     if (savedRefreshToken && hashedToken !== savedRefreshToken.hashedToken)
       throwError('refreshToken inválido', httpStatus.BAD_REQUEST)
 
-    const user = await getUserById(payload.userId)
+    const user = await findUserById(payload.userId)
 
     if (!user) throwError('Usuário não encontrado', httpStatus.NOT_FOUND)
     if (savedRefreshToken) {
