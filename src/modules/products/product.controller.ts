@@ -11,9 +11,9 @@ import pick from '../../utils/pick'
 import httpStatus from 'http-status'
 
 export const create = async (req: Request, res: Response) => {
-  const { name, price, photo, description } = req.body
+  const { name, price, description } = req.body
 
-  const result = await createProduct({ name, price, photo, description })
+  const result = await createProduct({ name, price, description })
 
   return res.status(httpStatus.CREATED).json(result)
 }
@@ -49,11 +49,10 @@ export const deleteOne = async (req: Request, res: Response) => {
 
 export const updateOne = async (req: Request, res: Response) => {
   const { productId } = req.params
-  const { name, price, photo, description } = req.body
+  const { name, price, description } = req.body
   const updatedProduct = {
     name,
     price,
-    photo,
     description,
   }
   const result = await updateProduct(productId, updatedProduct)

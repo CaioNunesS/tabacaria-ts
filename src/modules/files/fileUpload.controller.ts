@@ -14,10 +14,10 @@ export const fileUpload = async (req: Request, res: Response) => {
 
     const file = `${env.URL_IMAGE}/${filename}`
 
-    await fileUploadPhoto({ file, productId })
+    await fileUploadPhoto({ file, productId, filename })
     return res
       .status(201)
-      .json({ message: 'Upload successfully', data: req.file.filename })
+      .json({ message: 'Atualizado com sucesso', data: req.file.filename })
   }
 }
 
@@ -25,7 +25,7 @@ export const excludeProductImage = async (req: Request, res: Response) => {
   const { imageName } = req.params
   await deleteFile(imageName)
 
-  return res.json({ message: 'Image deleted successfully' })
+  return res.json({ message: 'Imagem deletada com sucesso' })
 }
 
 export const viewImage = async (req: Request, res: Response) => {

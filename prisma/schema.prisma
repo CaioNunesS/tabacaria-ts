@@ -43,14 +43,14 @@ model RefreshToken {
 }
 
 model Products {
-  id          String             @id @unique @default(uuid())
-  name        String
-  photo       String?
-  price       String
-  description String             @db.VarChar(255)
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
-  orders      ProductsOnOrders[]
+  id            String             @id @unique @default(uuid())
+  name          String
+  price         String
+  description   String             @db.VarChar(255)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  orders        ProductsOnOrders[]
+  ImageProducts ImageProducts[]
 }
 
 model Orders {
@@ -98,4 +98,14 @@ model ProductsOnOrders {
   updatedAt  DateTime @updatedAt
 
   @@id([productsId, ordersId])
+}
+
+model ImageProducts {
+  productsId String
+  ImageName  String   @unique
+  Products   Products @relation(fields: [productsId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@id([ImageName])
 }

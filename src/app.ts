@@ -6,6 +6,8 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import { notFound, erroHandler, logMiddleware } from './middleware/index'
 
+// import { tokenValidation } from '../src/utils/tokenValidation'
+
 import routes from './routes'
 // import swaggerUi from '@fastify/swagger-ui'
 // import swaggerFile from '../'
@@ -23,5 +25,6 @@ app.use('/api/v1', routes)
 
 app.use(notFound)
 app.use(erroHandler)
+// tokenValidation()
 
 export default app
