@@ -17,11 +17,12 @@ enum Role {
 }
 
 model User {
-  id               String         @id @unique @default(uuid())
+  id               String        @id @unique @default(uuid())
+  ativo            Boolean        @default(true)
   name             String
   email            String         @unique
   password         String
-  githubId         String?        @unique @db.Text
+  gitHubId         String?        @unique @db.Text
   googleId         String?        @unique @db.Text
   verificationCode String?        @unique @db.Text
   refreshTokens    RefreshToken[]
@@ -33,17 +34,18 @@ model User {
 }
 
 model RefreshToken {
-  id          String   @id @unique @default(uuid())
+  id          String              @id @unique @default(uuid())
   hashedToken String
   userId      String
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  revoked     Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  User        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked     Boolean             @default(false)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
 }
 
 model Products {
   id            String             @id @unique @default(uuid())
+  ativo         Boolean            @default(true)
   name          String
   price         String
   description   String             @db.VarChar(255)

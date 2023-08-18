@@ -1,18 +1,26 @@
-import { hashSync } from 'bcrypt'
 import { db } from '../../config/index'
+import { hashSync } from 'bcrypt'
 import { throwError } from '../../utils/index'
-import { User, Prisma } from '@prisma/client'
+import { User, Prisma, Role } from '@prisma/client'
 import httpStatus from 'http-status'
 
-type userCreate = {
+export type IuserCreate = {
+  id?: string
+  ativo?: boolean
   email: string
   password: string
   name: string
   gitHubId?: string
+  googleId?: string
+  role?: Role
+  verificationCode?: string
+  createdAt?: Date
+  updatedAt?: Date
 }
 
-type updateUserResponse = {
+type IupdateUserResponse = {
   id: string
+  ativo: boolean
   name: string
   email: string
   role: string
@@ -29,11 +37,12 @@ export const findUserByEmail = async (email: string) => {
       select: {
         id: true,
         name: true,
+        ativo: true,
         email: true,
         role: true,
         createdAt: true,
         updatedAt: true,
-        githubId: true,
+        gitHubId: true,
         googleId: true,
         password: true,
         verificationCode: true,
@@ -46,15 +55,15 @@ export const findUserByEmail = async (email: string) => {
   }
 }
 
-export const createUser = async (user: userCreate) => {
-  try {
-    user.password = hashSync(user.password, 12)
-    return db.user.create({
-      data: user,
-    })
-  } catch (error) {
-    throwError('Erro ao criar usuário', httpStatus.BAD_REQUEST)
-  }
+export const createUser = async (user: IuserCreate) => {
+  // try {
+  user.password = hashSync(user.password, 12)
+  return await db.user.create({
+    data: user,
+  })
+  // } catch (error) {
+  //   throwError('Erro ao criar usuário', httpStatus.BAD_REQUEST)
+  // }
 }
 
 export const findAllUsers = async <Key extends keyof User>(
@@ -62,6 +71,7 @@ export const findAllUsers = async <Key extends keyof User>(
     id?: string
     name?: string
     email?: string
+    ativo?: boolean
   },
   options: {
     limit?: number
@@ -72,6 +82,7 @@ export const findAllUsers = async <Key extends keyof User>(
   keys: Key[] = [
     'id',
     'name',
+    'ativo',
     'email',
     'role',
     'createdAt',
@@ -101,6 +112,7 @@ export const findUserById = async <Key extends keyof User>(
   keys: Key[] = [
     'id',
     'name',
+    'ativo',
     'email',
     'role',
     'createdAt',
@@ -126,15 +138,17 @@ export const updateUser = async <Key extends keyof User>(
   keys: Key[] = [
     'id',
     'name',
+    'ativo',
     'email',
     'role',
     'createdAt',
     'updatedAt',
   ] as Key[],
-): Promise<updateUserResponse | null> => {
+): Promise<IupdateUserResponse | null> => {
   const user = await findUserById(userId, [
     'id',
     'name',
+    'ativo',
     'email',
     'role',
     'createdAt',
@@ -147,7 +161,7 @@ export const updateUser = async <Key extends keyof User>(
     data: updateBody,
     select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
   })
-  return updatedUser as updateUserResponse | null
+  return updatedUser as IupdateUserResponse | null
 }
 
 export const deleteUser = async (userId: string): Promise<User> => {

@@ -3,10 +3,14 @@ import { db } from '../../config/index'
 import { throwError } from '../../utils/index'
 import httpStatus from 'http-status'
 
-type IcreateProduct = {
+export type IcreateProduct = {
+  id?: string
+  ativo?: boolean
   name: string
   price: string
   description: string
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 type updateProductResponse = {
@@ -47,6 +51,7 @@ export const findProductByName = async <Key extends keyof Products>(
   name: string,
   keys: Key[] = [
     'id',
+    'ativo',
     'name',
     'price',
     'description',
@@ -66,6 +71,7 @@ export const findProductById = async <Key extends keyof Products>(
   id: string,
   keys: Key[] = [
     'id',
+    'ativo',
     'name',
     'price',
     'description',
@@ -88,6 +94,7 @@ export const findProductById = async <Key extends keyof Products>(
 export const findAllProducts = async <Key extends keyof Products>(
   filter: {
     id?: string
+    ativo?: boolean
     name?: string
     price?: string
     description?: string
@@ -100,7 +107,14 @@ export const findAllProducts = async <Key extends keyof Products>(
     sortBy?: string
     sortType?: 'asc' | 'desc'
   },
-  keys: Key[] = ['id', 'name', 'price', 'createdAt', 'updatedAt'] as Key[],
+  keys: Key[] = [
+    'id',
+    'name',
+    'price',
+    'createdAt',
+    'updatedAt',
+    'ativo',
+  ] as Key[],
 ): Promise<Pick<Products, Key>[]> => {
   const page = options.page ?? 1
   const limit = options.limit ?? 10
@@ -131,13 +145,14 @@ export const deleteProduct = async (id: string): Promise<Products> => {
 export const updateProduct = async <Key extends keyof Products>(
   id: string,
   updateBody: Prisma.ProductsUpdateInput,
-  keys: Key[] = ['id', 'name', 'price', 'description'] as Key[],
+  keys: Key[] = ['id', 'name', 'price', 'description', 'ativo'] as Key[],
 ): Promise<updateProductResponse | null> => {
   const product = await findProductById(id, [
     'id',
     'name',
     'price',
     'description',
+    'ativo',
   ])
 
   if (!product) throwError('Produto não encontrado', httpStatus.NOT_FOUND)
@@ -156,6 +171,7 @@ export const findProductByImageName = async <Key extends keyof Products>(
   imageName: string,
   keys: Key[] = [
     'id',
+    'ativo',
     'name',
     'price',
     'description',
