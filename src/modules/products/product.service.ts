@@ -27,24 +27,20 @@ export const createProduct = async ({
   price,
   description,
 }: IcreateProduct) => {
-  try {
-    const getProduct = await findProductByName(name)
-    if (getProduct) {
-      throwError('Produto já cadastrado', httpStatus.BAD_REQUEST)
-    }
-
-    const result = await db.products.create({
-      data: {
-        name,
-        price,
-        description,
-      },
-    })
-
-    return result
-  } catch (error) {
-    throwError('Erro ao cadastrar produto', httpStatus.BAD_REQUEST)
+  const getProduct = await findProductByName(name)
+  if (getProduct) {
+    throwError('Produto já cadastrado', httpStatus.BAD_REQUEST)
   }
+
+  const result = await db.products.create({
+    data: {
+      name,
+      price,
+      description,
+    },
+  })
+
+  return result
 }
 
 export const findProductByName = async <Key extends keyof Products>(

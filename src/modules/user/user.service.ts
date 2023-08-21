@@ -28,42 +28,11 @@ type IupdateUserResponse = {
   updatedAt: Date
 }
 
-export const findUserByEmail = async (email: string) => {
-  try {
-    const user = await db.user.findUnique({
-      where: {
-        email,
-      },
-      select: {
-        id: true,
-        name: true,
-        ativo: true,
-        email: true,
-        role: true,
-        createdAt: true,
-        updatedAt: true,
-        gitHubId: true,
-        googleId: true,
-        password: true,
-        verificationCode: true,
-      },
-    })
-
-    return user
-  } catch (error) {
-    throwError('Usuário não encontrado', httpStatus.NOT_FOUND)
-  }
-}
-
 export const createUser = async (user: IuserCreate) => {
-  // try {
   user.password = hashSync(user.password, 12)
   return await db.user.create({
     data: user,
   })
-  // } catch (error) {
-  //   throwError('Erro ao criar usuário', httpStatus.BAD_REQUEST)
-  // }
 }
 
 export const findAllUsers = async <Key extends keyof User>(
@@ -105,6 +74,33 @@ export const findAllUsers = async <Key extends keyof User>(
     throwError('Usuário não encontrado', httpStatus.NOT_FOUND)
 
   return customer as Pick<User, Key>[]
+}
+
+export const findUserByEmail = async (email: string) => {
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        email,
+      },
+      select: {
+        id: true,
+        name: true,
+        ativo: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+        gitHubId: true,
+        googleId: true,
+        password: true,
+        verificationCode: true,
+      },
+    })
+
+    return user
+  } catch (error) {
+    throwError('Usuário não encontrado', httpStatus.NOT_FOUND)
+  }
 }
 
 export const findUserById = async <Key extends keyof User>(

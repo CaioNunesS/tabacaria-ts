@@ -27,7 +27,7 @@ describe.only('Product Service', () => {
       const user = await prismaMock.product.create({ data: createDataMock })
       return user
     })
-    it('return the product with correct properties', async () => {
+    it('should return the product with correct properties', async () => {
       prismaMock.product.create.mockResolvedValue(createDataMock)
       const result = await Product.createProduct(createDataMock)
 
@@ -40,7 +40,7 @@ describe.only('Product Service', () => {
       expect(result).toEqual(createDataMock)
     })
 
-    it('return an error if create request fails', async () => {
+    it('should return an error if create request fails', async () => {
       prismaMock.product.create.mockRejectedValue(
         new Error('create product failed'),
       )
@@ -64,7 +64,7 @@ describe.only('Product Service', () => {
       return user
     })
 
-    it('querys products with default options', async () => {
+    it('should querys products with default options', async () => {
       const filter = { ativo: true }
       const keys: (
         | 'id'
@@ -97,7 +97,7 @@ describe.only('Product Service', () => {
       })
     })
 
-    it('return an empty array if no product is found', async () => {
+    it('should return an empty array if no product is found', async () => {
       const filter = { ativo: true }
       const keys: (
         | 'id'
@@ -122,7 +122,7 @@ describe.only('Product Service', () => {
       expect(result).toEqual([])
     })
 
-    it('corretly apply the limit and page options', async () => {
+    it('should corretly apply the limit and page options', async () => {
       const filter = { ativo: true }
       const options = { limit: 5, page: 2 }
       const keys: (
@@ -175,7 +175,7 @@ describe.only('Product Service', () => {
       return user
     })
     prismaMock.product.findById.mockResolvedValue(queryProductById)
-    it('gets an user by id', async () => {
+    it('should gets an user by id', async () => {
       const result = await Product.findProductById(
         '598641f1-1b95-45c0-a11a-37958de2b63c',
       )
@@ -187,7 +187,7 @@ describe.only('Product Service', () => {
       })
     })
 
-    it('should throw an error if no user is found', async () => {
+    it('should should throw an error if no user is found', async () => {
       prismaMock.product.findById.mockRejectedValue(new Error('User not found'))
 
       await expect(
@@ -205,14 +205,14 @@ describe.only('Product Service', () => {
     })
     prismaMock.product.delete.mockResolvedValue(queryProductById)
 
-    it('delete an user', async () => {
+    it('should delete an user', async () => {
       await Product.deleteProduct('598641f1-1b95-45c0-a11a-37958de2b63c')
       expect(prismaMock.product.delete).toHaveBeenCalledWith({
         where: { id: '598641f1-1b95-45c0-a11a-37958de2b63c' },
       })
     })
 
-    it('throw an error if user not found', async () => {
+    it('should throw an error if user not found', async () => {
       prismaMock.product.findById.mockResolvedValue(null)
       prismaMock.product.delete.mockRejectedValue(new Error('user not found'))
       // eslint-disable-next-line prettier/prettier
@@ -230,7 +230,7 @@ describe.only('Product Service', () => {
     })
     prismaMock.product.findById.mockResolvedValue(queryProductById)
 
-    it('updates an user', async () => {
+    it('should updates an user', async () => {
       const updateBody = { ativo: false }
       prismaMock.product.update.mockResolvedValue({
         ...queryProductById,
@@ -246,7 +246,7 @@ describe.only('Product Service', () => {
       expect(result).toEqual({ ...queryProductById, ...updateBody })
     })
 
-    it('throws an error if the user is not found', async () => {
+    it('should throws an error if the user is not found', async () => {
       const updateBody = { ativo: false }
 
       prismaMock.product.update.mockRejectedValue(new Error('User not found'))
