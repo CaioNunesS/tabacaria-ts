@@ -12,7 +12,7 @@ export const sendMail = async ({ to, subject, html }: ISendMail) => {
   try {
     const transporter = createTransport({
       host: env.SMTP_HOST,
-      port: env.SMTP_PORT,
+      port: parseInt(env.SMTP_PORT),
       secure: false,
       auth: {
         user: env.SMTP_USER,
@@ -32,7 +32,6 @@ export const sendMail = async ({ to, subject, html }: ISendMail) => {
       preview: getTestMessageUrl(info),
     };
   } catch (error) {
-    console.log('error ==>', error);
     throw new Error('Error send mail');
   }
 };

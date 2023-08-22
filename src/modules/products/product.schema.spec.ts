@@ -27,7 +27,9 @@ describe('register product schema', () => {
       };
       const schema = productSchema.safeParse(invalidInput);
       if (!schema.success) {
-        expect(schema.error.issues[0].message).toEqual('Name é obrigatório');
+        expect(schema.error.issues[0].message).toEqual(
+          'Name é um campo obrigatório'
+        );
       }
 
       it('should return an error for a body without "price"', () => {
@@ -39,7 +41,9 @@ describe('register product schema', () => {
         };
         const schema = productSchema.safeParse(invalidInput);
         if (!schema.success) {
-          expect(schema.error.issues[0].message).toEqual('Price é obrigatório');
+          expect(schema.error.issues[0].message).toEqual(
+            'Price é um campo obrigatório'
+          );
         }
       });
     });
@@ -54,7 +58,7 @@ describe('register product schema', () => {
       const schema = productSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'Description é obrigatório'
+          'Description é um campo obrigatório'
         );
       }
     });
@@ -87,7 +91,7 @@ describe('register product schema', () => {
 
       if (!schema.success) {
         expect(schema.error.issues[0].message).toBe(
-          'o campo "price" deve ser um número válido, com no máximo duas casas decimáis'
+          'O campo "price" deve ser um número válido, com no máximo duas casas decimáis'
         );
       }
     });

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { orderSchema } from './order.schema';
 
-describe.only('register order schema', () => {
+describe('register order schema', () => {
   describe('when a valid body', () => {
     it('should validates a body with all fields', () => {
       const validInput = {
@@ -29,7 +29,7 @@ describe.only('register order schema', () => {
       const schema = orderSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'Campo Produto é obrigatório'
+          'products é um campo obrigatório'
         );
       }
     });

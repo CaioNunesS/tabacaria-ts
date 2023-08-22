@@ -2,11 +2,13 @@ import { object, string } from 'zod';
 
 export const productSchema = object({
   body: object({
-    name: string({ required_error: 'Name é obrigatório' }),
-    price: string({ required_error: 'Price é obrigatório' }).regex(
+    name: string({ required_error: 'Name é um campo obrigatório' }),
+    price: string({ required_error: 'Price é um campo obrigatório' }).regex(
       /^\d+(\.\d{1,2})?$/,
-      'o campo "price" deve ser um número válido, com no máximo duas casas decimáis'
+      'O campo "price" deve ser um número válido, com no máximo duas casas decimáis'
     ),
-    description: string({ required_error: 'Description é obrigatório' }),
+    description: string({
+      required_error: 'Description é um campo obrigatório',
+    }),
   }),
 });

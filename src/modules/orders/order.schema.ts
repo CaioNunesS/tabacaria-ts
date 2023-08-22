@@ -3,7 +3,7 @@ import { object, string } from 'zod';
 export const orderSchema = object({
   body: object({
     products: string({
-      required_error: 'Campo Produto é obrigatório',
+      required_error: 'products é um campo obrigatório',
     })
       .array()
       .nonempty(),
