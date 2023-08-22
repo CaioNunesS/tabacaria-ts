@@ -2,7 +2,7 @@ import * as SMS from './sms.service';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { sendSmsMock } from '../../../mocks/notification.mock';
 
-export const prismaMock = {
+const prismaMock = {
   Sms: {
     create: vi.fn(),
   },

@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { createTransport, getTestMessageUrl } from 'nodemailer';
 import { env } from '../../../env';
 
-type ISendMail = {
+export type ISendMail = {
   to: string;
   subject: string;
   html: string;
@@ -32,6 +32,6 @@ export const sendMail = async ({ to, subject, html }: ISendMail) => {
       preview: getTestMessageUrl(info),
     };
   } catch (error) {
-    throw new Error('Error send mail');
+    throw new Error('Error ao enviar email');
   }
 };
