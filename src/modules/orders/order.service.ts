@@ -3,12 +3,16 @@ import { throwError } from '../../utils/index'
 
 import { findProductById } from '../products/product.service'
 import { findCouponById, verifyUserCoupon } from '../coupons/coupon.service'
-import { Coupons, Orders } from '@prisma/client'
+import { Orders } from '@prisma/client'
 
-type ICreateOrder = {
+export type ICreateOrder = {
+  id?: string
   products: string[]
   couponId?: string | undefined
   userId: string
+  createdAt?: Date
+  updatedAt?: Date
+  value?: string
 }
 
 type IsumProductsPrice = {
@@ -53,7 +57,7 @@ export const createOrder = async ({
       User: {
         connect: { id: userId },
       },
-      discount: value ?? '0',
+      discount: getCoupon?.value ?? '0',
     },
     include: {
       products: { select: { Products: true } },
@@ -81,6 +85,7 @@ export const findAllOrders = async (
     createdAt?: Date
     updatedAt?: Date
     userId?: string
+    revoked?: boolean
   },
   options: {
     limit?: number
@@ -151,7 +156,7 @@ export const findOrderById = async <Key extends keyof Orders>(
   return getOrder as Pick<Orders, Key>
 }
 
-const sumProductsPrice = async ({
+export const sumProductsPrice = async ({
   products,
   valueDiscount,
 }: IsumProductsPrice) => {
@@ -162,6 +167,9 @@ const sumProductsPrice = async ({
     if (product) {
       productPrice += Number.parseFloat(product.price)
     }
+  }
+  if (productPrice - (valueDiscount ?? 0) <= 0) {
+    return '0.00'
   }
   return (productPrice - (valueDiscount ?? 0)).toFixed(2)
 }

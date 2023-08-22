@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { createOrder, findAllOrders, findOrderById } from './order.service'
-import httpStatus from 'http-status'
 import pick from '../../utils/pick'
+import httpStatus from 'http-status'
 
 export const create = async (req: Request, res: Response) => {
   const { products, couponId } = req.body
@@ -11,9 +11,8 @@ export const create = async (req: Request, res: Response) => {
 
   const result = await createOrder({ products, couponId: coupon, userId })
 
-  return res.json({
+  return res.status(httpStatus.CREATED).json({
     data: result,
-    message: 'Pedido criado com sucesso',
   })
 }
 
@@ -24,6 +23,7 @@ export const findAll = async (req: Request, res: Response) => {
     'updatedAt',
     'value',
     'userId',
+    'revoked',
   ])
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortType'])
   const result = await findAllOrders(filter, options)

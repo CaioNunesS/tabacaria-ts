@@ -44,6 +44,27 @@ export const queryProductById: Products = {
   updatedAt: new Date(),
 }
 
+export const products = [
+  {
+    id: '598641f1-1b95-45c0-a11a-37958de2b63c',
+    ativo: true,
+    name: faker.word.sample(),
+    price: '100',
+    description: faker.word.sample(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: '598641f1-1b95-45c0-a11a-37958de2b63r',
+    ativo: true,
+    name: faker.word.sample(),
+    price: '100',
+    description: faker.word.sample(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+]
+
 export const selectMock = {
   id: true,
   name: true,

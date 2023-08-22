@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { productSchema } from './product.schema'
 
-describe('register schema', () => {
+describe('register product schema', () => {
   describe('when a valid body', () => {
     it('should validates a body with all fields', () => {
       const validInput = {
