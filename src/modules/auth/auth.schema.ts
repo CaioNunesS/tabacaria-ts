@@ -1,4 +1,4 @@
-import { object, string } from 'zod'
+import { object, string } from 'zod';
 
 export const registerSchema = object({
   body: object({
@@ -12,7 +12,7 @@ export const registerSchema = object({
       required_error: 'password é obrigatório',
     }).min(6, 'Deve ter ao menos 6 caracteres'),
   }),
-})
+});
 
 export const registerCompleteSchema = object({
   body: object({
@@ -29,7 +29,7 @@ export const registerCompleteSchema = object({
       required_error: 'password é obrigatório',
     }).min(6, 'Deve ter ao menos 6 caracteres'),
   }),
-})
+});
 
 export const loginSchema = object({
   body: object({
@@ -40,7 +40,7 @@ export const loginSchema = object({
       required_error: 'Password é obrigatório',
     }).min(6, 'Deve ter ao menos 6 caracteres'),
   }),
-})
+});
 
 export const refreshTokenSchema = object({
   body: object({
@@ -48,7 +48,7 @@ export const refreshTokenSchema = object({
       required_error: 'refresh token é obrigatório',
     }),
   }),
-})
+});
 
 export const revokeTokenSchema = object({
   body: object({
@@ -56,4 +56,4 @@ export const revokeTokenSchema = object({
       required_error: 'userId é obrigatório',
     }),
   }),
-})
+});

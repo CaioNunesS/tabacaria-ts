@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
-import { productSchema } from './product.schema'
+import { describe, expect, it } from 'vitest';
+import { productSchema } from './product.schema';
 
 describe('register product schema', () => {
   describe('when a valid body', () => {
@@ -10,12 +10,12 @@ describe('register product schema', () => {
           price: '10.00',
           description: 'Produto x',
         },
-      }
-      const schema = productSchema.safeParse(validInput)
+      };
+      const schema = productSchema.safeParse(validInput);
 
-      expect(schema.success).toBe(true)
-    })
-  })
+      expect(schema.success).toBe(true);
+    });
+  });
 
   describe('when a invalid body', () => {
     it('should return an error for a body without "name"', () => {
@@ -24,10 +24,10 @@ describe('register product schema', () => {
           price: '10.00',
           description: 'Produto x',
         },
-      }
-      const schema = productSchema.safeParse(invalidInput)
+      };
+      const schema = productSchema.safeParse(invalidInput);
       if (!schema.success) {
-        expect(schema.error.issues[0].message).toEqual('Name é obrigatório')
+        expect(schema.error.issues[0].message).toEqual('Name é obrigatório');
       }
 
       it('should return an error for a body without "price"', () => {
@@ -36,13 +36,13 @@ describe('register product schema', () => {
             name: 'Produto',
             description: 'Produto x',
           },
-        }
-        const schema = productSchema.safeParse(invalidInput)
+        };
+        const schema = productSchema.safeParse(invalidInput);
         if (!schema.success) {
-          expect(schema.error.issues[0].message).toEqual('Price é obrigatório')
+          expect(schema.error.issues[0].message).toEqual('Price é obrigatório');
         }
-      })
-    })
+      });
+    });
 
     it('should return an error for a body without "description"', () => {
       const invalidInput = {
@@ -50,14 +50,14 @@ describe('register product schema', () => {
           name: 'Produto',
           price: '10.00',
         },
-      }
-      const schema = productSchema.safeParse(invalidInput)
+      };
+      const schema = productSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'Description é obrigatório',
-        )
+          'Description é obrigatório'
+        );
       }
-    })
+    });
 
     it('should return an error if "price" is not a string', () => {
       const invalidInput = {
@@ -66,14 +66,14 @@ describe('register product schema', () => {
           price: 10.0,
           description: 'Produto x',
         },
-      }
-      const schema = productSchema.safeParse(invalidInput)
+      };
+      const schema = productSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'Expected string, received number',
-        )
+          'Expected string, received number'
+        );
       }
-    })
+    });
 
     it('should return an error if "price" is not a válid number', () => {
       const invalidInput = {
@@ -82,14 +82,14 @@ describe('register product schema', () => {
           price: '1ed',
           description: 'Produto x',
         },
-      }
-      const schema = productSchema.safeParse(invalidInput)
+      };
+      const schema = productSchema.safeParse(invalidInput);
 
       if (!schema.success) {
         expect(schema.error.issues[0].message).toBe(
-          'o campo "price" deve ser um número válido, com no máximo duas casas decimáis',
-        )
+          'o campo "price" deve ser um número válido, com no máximo duas casas decimáis'
+        );
       }
-    })
-  })
-})
+    });
+  });
+});

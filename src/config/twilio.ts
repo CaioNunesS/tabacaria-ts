@@ -1,16 +1,16 @@
-import client from 'twilio'
-import { throwError } from '../utils'
+import client from 'twilio';
+import { throwError } from '../utils';
 
-import { env } from '../env'
+import { env } from '../env';
 
-const accountSid = env.TWILIO_ACCOUNT_SID
-const authToken = env.TWILIO_AUTH_TOKEN
-const fromPhone = env.TWILIO_PHONE
+const accountSid = env.TWILIO_ACCOUNT_SID;
+const authToken = env.TWILIO_AUTH_TOKEN;
+const fromPhone = env.TWILIO_PHONE;
 
 export type ITwilio = {
-  phone: string
-  message: string
-}
+  phone: string;
+  message: string;
+};
 
 export const twilioConfig = async ({ phone, message }: ITwilio) => {
   try {
@@ -18,12 +18,12 @@ export const twilioConfig = async ({ phone, message }: ITwilio) => {
       body: message,
       to: phone,
       from: fromPhone,
-    })
+    });
     return {
       status: result.status,
       id: result.sid,
-    }
+    };
   } catch (error) {
-    throwError('Erro ao enviar SMS com o TWILIO', 400)
+    throwError('Erro ao enviar SMS com o TWILIO', 400);
   }
-}
+};

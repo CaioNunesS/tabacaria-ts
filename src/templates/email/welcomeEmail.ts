@@ -1,6 +1,6 @@
 type IwelcomeMailTemplate = {
-  name: string
-}
+  name: string;
+};
 
 export const welcomeMailTemplate = ({ name }: IwelcomeMailTemplate) => `
    <!doctype html>
@@ -398,4 +398,4 @@ export const welcomeMailTemplate = ({ name }: IwelcomeMailTemplate) => `
    </body>
 
    </html>
-`
+`;

@@ -1,4 +1,4 @@
-import { object, string } from 'zod'
+import { object, string } from 'zod';
 
 export const orderSchema = object({
   body: object({
@@ -9,4 +9,4 @@ export const orderSchema = object({
       .nonempty(),
   }),
   couponId: string().optional(),
-})
+});

@@ -1,7 +1,7 @@
-import { Router } from 'express'
-import { getAll } from './logs.controller'
+import { Router } from 'express';
+import { getAll } from './logs.controller';
 
-const logRoutes = Router()
-logRoutes.get('/', getAll)
+const logRoutes = Router();
+logRoutes.get('/', getAll);
 
-export default logRoutes
+export default logRoutes;

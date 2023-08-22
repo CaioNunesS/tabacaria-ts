@@ -1,5 +1,5 @@
-import { object, string } from 'zod'
-import { phoneRegex } from '../../../utils/regex'
+import { object, string } from 'zod';
+import { phoneRegex } from '../../../utils/regex';
 
 export const smsSchema = object({
   body: object({
@@ -8,4 +8,4 @@ export const smsSchema = object({
       .regex(phoneRegex, 'Número invalido'),
     name: string({ required_error: 'Name é um campo obrigatório' }),
   }),
-})
+});

@@ -1,4 +1,4 @@
-import { object, string } from 'zod'
+import { object, string } from 'zod';
 
 export const couponSchema = object({
   body: object({
@@ -6,4 +6,4 @@ export const couponSchema = object({
     description: string({ required_error: 'Description é obrigatório' }),
     value: string({ required_error: 'Value é obrigatório' }),
   }),
-})
+});

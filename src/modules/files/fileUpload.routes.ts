@@ -1,19 +1,18 @@
-import { Router } from 'express'
+import { Router } from 'express';
 import {
   asyncWrapper,
   diskStorage,
   imageFileFilter as imageFilter,
   limits,
-  isAuthenticated,
-} from '../../middleware/index'
-import multer from 'multer'
+} from '../../middleware/index';
+import multer from 'multer';
 import {
   fileUpload,
   excludeProductImage,
   viewImage,
-} from './fileUpload.controller'
+} from './fileUpload.controller';
 
-const fileRoutes = Router()
+const fileRoutes = Router();
 
 fileRoutes.patch(
   '/:productId',
@@ -22,9 +21,9 @@ fileRoutes.patch(
     limits,
     fileFilter: imageFilter,
   }).single('file'),
-  asyncWrapper(fileUpload),
-)
-fileRoutes.get('/:imageName', asyncWrapper(viewImage))
-fileRoutes.delete('/:imageName', asyncWrapper(excludeProductImage))
+  asyncWrapper(fileUpload)
+);
+fileRoutes.get('/:imageName', asyncWrapper(viewImage));
+fileRoutes.delete('/:imageName', asyncWrapper(excludeProductImage));
 
-export default fileRoutes
+export default fileRoutes;

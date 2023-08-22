@@ -1,8 +1,8 @@
-import { faker } from '@faker-js/faker'
-import { IuserCreate } from '../modules/user/user.service'
-import { hashSync } from 'bcrypt'
-import { v4 as uuid } from 'uuid'
-import { User } from '@prisma/client'
+import { faker } from '@faker-js/faker';
+import { IuserCreate } from '../modules/user/user.service';
+import { hashSync } from 'bcrypt';
+import { v4 as uuid } from 'uuid';
+import { User } from '@prisma/client';
 
 export const createDataMock: IuserCreate = {
   id: uuid(),
@@ -15,7 +15,7 @@ export const createDataMock: IuserCreate = {
   role: 'CLIENT',
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 export const queryUserMock = [
   {
@@ -44,7 +44,7 @@ export const queryUserMock = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
-]
+];
 
 export const queryUserById: User = {
   id: '598641f1-1b95-45c0-a11a-37958de2b63c',
@@ -58,11 +58,11 @@ export const queryUserById: User = {
   role: 'CLIENT',
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 export const selectMock = {
   id: true,
   email: true,
   ativo: true,
   name: true,
-}
+};

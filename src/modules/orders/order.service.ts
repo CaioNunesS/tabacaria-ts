@@ -1,24 +1,24 @@
-import { db } from '../../config/index'
-import { throwError } from '../../utils/index'
+import { db } from '../../config/index';
+import { throwError } from '../../utils/index';
 
-import { findProductById } from '../products/product.service'
-import { findCouponById, verifyUserCoupon } from '../coupons/coupon.service'
-import { Orders } from '@prisma/client'
+import { findProductById } from '../products/product.service';
+import { findCouponById, verifyUserCoupon } from '../coupons/coupon.service';
+import { Orders } from '@prisma/client';
 
 export type ICreateOrder = {
-  id?: string
-  products: string[]
-  couponId?: string | undefined
-  userId: string
-  createdAt?: Date
-  updatedAt?: Date
-  value?: string
-}
+  id?: string;
+  products: string[];
+  couponId?: string | undefined;
+  userId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  value?: string;
+};
 
 type IsumProductsPrice = {
-  products: string[]
-  valueDiscount: number
-}
+  products: string[];
+  valueDiscount: number;
+};
 
 export const createOrder = async ({
   products,
@@ -26,22 +26,22 @@ export const createOrder = async ({
   userId,
 }: ICreateOrder) => {
   // try {
-  const getCoupon = await findCouponById(couponId)
+  const getCoupon = await findCouponById(couponId);
 
   if (getCoupon && getCoupon.revoked === true) {
-    throwError('Coupon inválido', 400)
+    throwError('Coupon inválido', 400);
   }
-  let value = '0'
+  let value = '0';
 
   value = await sumProductsPrice({
     products,
     valueDiscount: getCoupon && getCoupon.value ? +getCoupon.value : 0,
-  })
+  });
   const result = await db.orders.create({
     data: {
       value,
       products: {
-        create: products.map((product) => ({
+        create: products.map(product => ({
           Products: {
             connect: {
               id: product,
@@ -68,36 +68,36 @@ export const createOrder = async ({
         },
       },
     },
-  })
+  });
   if (couponId) {
-    await verifyUserCoupon(userId, couponId)
+    await verifyUserCoupon(userId, couponId);
   }
-  return result
+  return result;
   // } catch (error) {
   //   throwError('Erro para criar order', 400)
   // }
-}
+};
 
 export const findAllOrders = async (
   filter: {
-    id?: string
-    value?: string
-    createdAt?: Date
-    updatedAt?: Date
-    userId?: string
-    revoked?: boolean
+    id?: string;
+    value?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    userId?: string;
+    revoked?: boolean;
   },
   options: {
-    limit?: number
-    page?: number
-    sortBy?: string
-    sortType?: 'asc' | 'desc'
-  },
+    limit?: number;
+    page?: number;
+    sortBy?: string;
+    sortType?: 'asc' | 'desc';
+  }
 ) => {
-  const page = options.page ?? 1
-  const limit = options.limit ?? 10
-  const sortBy = options.sortBy
-  const sortType = options.sortType ?? 'desc'
+  const page = options.page ?? 1;
+  const limit = options.limit ?? 10;
+  const sortBy = options.sortBy;
+  const sortType = options.sortType ?? 'desc';
 
   const result = await db.orders.findMany({
     where: filter,
@@ -117,23 +117,14 @@ export const findAllOrders = async (
     skip: (Number(page) - 1) * Number(limit),
     take: Number(limit),
     orderBy: sortBy ? { [sortBy]: sortType } : undefined,
-  })
+  });
 
-  return result
-}
+  return result;
+};
 
-export const findOrderById = async <Key extends keyof Orders>(
-  orderId: string,
-  keys: Key[] = [
-    'id',
-    'createdAt',
-    'updatedAt',
-    'userId',
-    'discount',
-    'isPaid',
-    'value',
-  ] as Key[],
-): Promise<Pick<Orders, Key> | undefined> => {
+export const findOrderById = async (
+  orderId: string
+): Promise<Orders | undefined> => {
   const getOrder = await db.orders.findUnique({
     where: { id: orderId },
     // select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
@@ -150,26 +141,26 @@ export const findOrderById = async <Key extends keyof Orders>(
         },
       },
     },
-  })
-  if (!getOrder) throwError('Pedido não encontrado', 404)
+  });
+  if (!getOrder) throwError('Pedido não encontrado', 404);
 
-  return getOrder as Pick<Orders, Key>
-}
+  return getOrder as Orders;
+};
 
 export const sumProductsPrice = async ({
   products,
   valueDiscount,
 }: IsumProductsPrice) => {
-  let productPrice = 0
+  let productPrice = 0;
 
   for (const productId of products) {
-    const product = await findProductById(productId)
+    const product = await findProductById(productId);
     if (product) {
-      productPrice += Number.parseFloat(product.price)
+      productPrice += Number.parseFloat(product.price);
     }
   }
   if (productPrice - (valueDiscount ?? 0) <= 0) {
-    return '0.00'
+    return '0.00';
   }
-  return (productPrice - (valueDiscount ?? 0)).toFixed(2)
-}
+  return (productPrice - (valueDiscount ?? 0)).toFixed(2);
+};

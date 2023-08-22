@@ -1,7 +1,7 @@
-import { faker } from '@faker-js/faker'
-import { v4 as uuid } from 'uuid'
-import { Products } from '@prisma/client'
-import { IcreateProduct } from '../modules/products/product.service'
+import { faker } from '@faker-js/faker';
+import { v4 as uuid } from 'uuid';
+import { Products } from '@prisma/client';
+import { IcreateProduct } from '../modules/products/product.service';
 
 export const createDataMock: IcreateProduct = {
   id: uuid(),
@@ -11,7 +11,7 @@ export const createDataMock: IcreateProduct = {
   createdAt: new Date(),
   updatedAt: new Date(),
   ativo: true,
-}
+};
 
 export const queryProduct = [
   {
@@ -32,7 +32,7 @@ export const queryProduct = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
-]
+];
 
 export const queryProductById: Products = {
   id: '598641f1-1b95-45c0-a11a-37958de2b63c',
@@ -42,7 +42,7 @@ export const queryProductById: Products = {
   description: faker.word.sample(),
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 export const products = [
   {
@@ -63,7 +63,7 @@ export const products = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
-]
+];
 
 export const selectMock = {
   id: true,
@@ -73,4 +73,4 @@ export const selectMock = {
   price: true,
   createdAt: true,
   updatedAt: true,
-}
+};

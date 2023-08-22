@@ -1,7 +1,7 @@
-import 'dotenv/config'
-import swaggerAutogen from 'swagger-autogen'
+import 'dotenv/config';
+import swaggerAutogen from 'swagger-autogen';
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 5000;
 
 const doc = {
   info: {
@@ -31,11 +31,11 @@ const doc = {
       },
     },
   }, // by default: empty object (OpenAPI 3.x)
-}
+};
 
-const outputFile = './swagger_output.json'
-const endpointsFiles = ['src/routes.ts']
+const outputFile = './swagger_output.json';
+const endpointsFiles = ['src/routes.ts'];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc).then(() => {
-  import('../app.js')
-})
+  import('../app.js');
+});

@@ -1,7 +1,7 @@
-import { faker } from '@faker-js/faker'
-import { v4 as uuid } from 'uuid'
-import { ICreateOrder } from '../modules/orders/order.service'
-import { Orders } from '@prisma/client'
+import { faker } from '@faker-js/faker';
+import { v4 as uuid } from 'uuid';
+import { ICreateOrder } from '../modules/orders/order.service';
+import { Orders } from '@prisma/client';
 
 export const createDataMock: ICreateOrder = {
   id: uuid(),
@@ -11,7 +11,7 @@ export const createDataMock: ICreateOrder = {
   couponId: faker.word.sample(),
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 export const createDataMockWithoutCoupon: ICreateOrder = {
   id: uuid(),
@@ -20,7 +20,7 @@ export const createDataMockWithoutCoupon: ICreateOrder = {
   userId: faker.word.sample(),
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 export const queryOrder = [
   {
@@ -39,7 +39,7 @@ export const queryOrder = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
-]
+];
 
 export const queryOrderById: Orders = {
   id: '598641f1-1b95-45c0-a11a-37958de2b63c',
@@ -51,7 +51,7 @@ export const queryOrderById: Orders = {
   updatedAt: new Date(),
   discount: '10',
   isPaid: true,
-}
+};
 
 export const selectMock = {
   id: true,
@@ -62,4 +62,4 @@ export const selectMock = {
   couponsId: true,
   isPaid: true,
   discount: true,
-}
+};

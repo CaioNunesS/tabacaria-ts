@@ -1,33 +1,33 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { validate, asyncWrapper } from './../../middleware/index'
+import { validate, asyncWrapper } from './../../middleware/index';
 import {
   create,
   login,
   refreshToken,
   revokeRefreshToken,
-} from './auth.controller'
+} from './auth.controller';
 
 import {
   registerSchema,
   loginSchema,
   refreshTokenSchema,
   revokeTokenSchema,
-} from './auth.schema'
+} from './auth.schema';
 
-const authRoutes = Router()
+const authRoutes = Router();
 
-authRoutes.post('/', validate(registerSchema), asyncWrapper(create))
-authRoutes.post('/login', validate(loginSchema), asyncWrapper(login))
+authRoutes.post('/', validate(registerSchema), asyncWrapper(create));
+authRoutes.post('/login', validate(loginSchema), asyncWrapper(login));
 authRoutes.post(
   '/refresh-token',
   validate(refreshTokenSchema),
-  asyncWrapper(refreshToken),
-)
+  asyncWrapper(refreshToken)
+);
 authRoutes.post(
   '/logout',
   validate(revokeTokenSchema),
-  asyncWrapper(revokeRefreshToken),
-)
+  asyncWrapper(revokeRefreshToken)
+);
 
-export default authRoutes
+export default authRoutes;

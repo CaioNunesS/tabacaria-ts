@@ -1,4 +1,4 @@
-import { object, string } from 'zod'
+import { object, string } from 'zod';
 
 export const sendMailSchema = object({
   body: object({
@@ -12,4 +12,4 @@ export const sendMailSchema = object({
       required_error: 'Subject é obrigatório',
     }),
   }),
-})
+});
