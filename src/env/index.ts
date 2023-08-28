@@ -2,6 +2,9 @@ import 'dotenv/config';
 import { z } from 'zod';
 
 const envSchema = z.object({
+  NODE_ENV: z
+    .enum(['development', 'test', 'production'])
+    .default('development'),
   SMTP_HOST: z.string(),
   SMTP_PORT: z.string(),
   SMTP_USER: z.string(),
@@ -18,9 +21,11 @@ const envSchema = z.object({
   JWT_REFRESH_SECRET: z.string(),
   JWT_ACCESS_SECRET: z.string(),
   URL_IMAGE: z.string(),
-  NODE_ENV: z
-    .enum(['development', 'test', 'production'])
-    .default('development'),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  GOOGLE_CALLBACK_URL: z.string(),
+  JWT_KEY: z.string(),
+  SESSION_SECRET: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);

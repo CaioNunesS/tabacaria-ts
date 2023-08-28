@@ -6,3 +6,4 @@ export * from './isAuthenticated';
 export * from './hasRole';
 export * from './fileUpload';
 export * from './morgan';
+export * from './passport';

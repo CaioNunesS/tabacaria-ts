@@ -30,6 +30,7 @@ type IRegister = {
   password: string;
   name: string;
   gitHubId?: string;
+  googleId?: string;
 };
 
 type IRefreshToken = {
@@ -89,13 +90,20 @@ export const register = async ({
   password,
   name,
   gitHubId,
+  googleId,
 }: IRegister) => {
   try {
     const userEmail = await findUserByEmail(email);
 
     if (userEmail) throwError('Email já cadastrado', httpStatus.BAD_REQUEST);
 
-    const user = await createUser({ email, password, name, gitHubId });
+    const user = await createUser({
+      email,
+      password,
+      name,
+      gitHubId,
+      googleId,
+    });
 
     if (user) {
       return await returnResponse(user);

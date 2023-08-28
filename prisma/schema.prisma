@@ -21,7 +21,7 @@ model User {
   ativo            Boolean        @default(true)
   name             String
   email            String         @unique
-  password         String
+  password         String?
   gitHubId         String?        @unique @db.Text
   googleId         String?        @unique @db.Text
   verificationCode String?        @unique @db.Text

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 
 import { validate, asyncWrapper } from './../../middleware/index';
 import {
@@ -7,6 +8,7 @@ import {
   refreshToken,
   revokeRefreshToken,
 } from './auth.controller';
+import { handleGoogleAuth } from './OAuth/google/google.controller';
 
 import {
   registerSchema,
@@ -28,6 +30,17 @@ authRoutes.post(
   '/logout',
   validate(revokeTokenSchema),
   asyncWrapper(revokeRefreshToken)
+);
+
+authRoutes.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+authRoutes.get(
+  '/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  handleGoogleAuth
 );
 
 export default authRoutes;
