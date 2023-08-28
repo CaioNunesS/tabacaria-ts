@@ -21,13 +21,13 @@ export const registerWithGoogle = async ({
       googleId: id,
       name: `${firstName} ${lastName}`,
     };
-    await updateUser(getProfile.id, user);
+    return await updateUser(getProfile.id, user);
   }
 
   const userBody = {
     googleId: id,
     name: `${firstName} ${lastName}`,
-    email: email,
+    email,
   };
   const result = await db.user.create({
     data: userBody,

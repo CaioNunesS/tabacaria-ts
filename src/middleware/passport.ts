@@ -23,7 +23,6 @@ const userProfile = (profile: IOauthUser) => {
   let firstName;
   let lastName;
   let email;
-  console.log('profile: ==>', profile);
 
   if (emails && emails.length) email = emails[0].value;
   if (name.givenName) firstName = name.givenName;

@@ -123,7 +123,7 @@ describe('Product Service', () => {
       expect(result).toEqual([]);
     });
 
-    it('should corretly apply the limit and page options', async () => {
+    it('should correctly apply the limit and page options', async () => {
       const filter = { ativo: true };
       const options = { limit: 5, page: 2 };
       const keys: (
@@ -154,7 +154,6 @@ describe('Product Service', () => {
 
         return product;
       });
-      prismaMock.product.findMany.mockResolvedValue([]);
 
       await Product.findAllProducts(filter, options, keys);
       expect(prismaMock.product.findMany).toHaveBeenCalledWith({
@@ -188,7 +187,7 @@ describe('Product Service', () => {
       });
     });
 
-    it('should should throw an error if no product is found', async () => {
+    it('should throw an error if no product is found', async () => {
       prismaMock.product.findById.mockRejectedValue(
         new Error('Product not found')
       );

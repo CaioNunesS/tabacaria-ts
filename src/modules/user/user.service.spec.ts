@@ -123,7 +123,6 @@ describe('User Service', () => {
 
         return user;
       });
-      prismaMock.user.findMany.mockResolvedValue([]);
 
       await User.findAllUsers(filter, options, keys);
       expect(prismaMock.user.findMany).toHaveBeenCalledWith({

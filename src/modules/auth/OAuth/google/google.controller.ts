@@ -7,11 +7,8 @@ import { env } from '../../../../env';
 
 export const handleGoogleAuth = async (req: Request, res: Response) => {
   try {
-    // if (!req.body) throwError('Invalid', 400);
     const { id, firstName, lastName, email } = req.user;
     if (req.user) {
-      console.log('user ==>', req.user);
-
       const token = jwt.sign(req.user, env.JWT_KEY);
       const responseObject = {
         token: token,

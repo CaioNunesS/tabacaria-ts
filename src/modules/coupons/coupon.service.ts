@@ -2,10 +2,14 @@ import { Coupons } from '@prisma/client';
 import { db } from '../../config/index';
 import { throwError } from '../../utils/index';
 
-type IcreateCoupon = {
+export type IcreateCoupon = {
+  id?: string;
   title: string;
   description: string;
   value: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  revoked?: boolean;
 };
 
 export const createCoupon = async ({
@@ -101,7 +105,6 @@ export const findCouponById = async <Key extends keyof Coupons>(
       where: { id: couponId },
       select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
     });
-    // console.log('result', result)
 
     if (!result) throwError('Coupon não encontrado', 404);
     return result as Pick<Coupons, Key>;

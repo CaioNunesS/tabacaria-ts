@@ -4,3 +4,5 @@ export const passwordRegex =
 export const phoneRegex = /^\+\d{2}\d{2}\d{9}$/;
 
 export const emailRegex = /^[\w\.-]+@[\w\.-]+\.\w+$/;
+
+export const valueRegex = /^\d+(\.\d+)?$/;
