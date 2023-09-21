@@ -35,80 +35,80 @@ model User {
 }
 
 model RefreshToken {
-  id              String              @id @unique @default(uuid())
-  hashedToken     String
-  userId          String
-  User            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  revoked         Boolean             @default(false)
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
+  id               String              @id @unique @default(uuid())
+  hashedToken      String
+  userId           String
+  User             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked          Boolean             @default(false)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
 }
 
 model Products {
-  id              String              @id @unique @default(uuid())
-  ativo           Boolean             @default(true)
-  name            String
-  price           String
-  description     String              @db.VarChar(255)
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
-  orders          ProductsOnOrders[]
-  ImageProducts   ImageProducts[]
+  id               String              @id @unique @default(uuid())
+  ativo            Boolean             @default(true)
+  name             String
+  price            String
+  description      String              @db.VarChar(255)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  orders           ProductsOnOrders[]
+  ImageProducts    ImageProducts[]
 }
 
 model Orders {
-  id              String              @id @unique @default(uuid())
-  value           String
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
-  User            User?               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId          String?
-  coupons         Coupons?            @relation(fields: [couponsId], references: [id])
-  couponsId       String?
-  isPaid          Boolean             @default(false)
-  discount        String?
-  products        ProductsOnOrders[]
+  id               String              @id @unique @default(uuid())
+  value            String
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  User             User?               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String?
+  coupons          Coupons?            @relation(fields: [couponsId], references: [id])
+  couponsId        String?
+  isPaid           Boolean             @default(false)
+  discount         String?
+  products         ProductsOnOrders[]
 }
 
 model Coupons {
-  id              String              @id @unique @default(uuid())
-  title           String
-  description     String
-  value           String
-  revoked         Boolean             @default(false)
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
-  Orders          Orders[]
-  UserCoupons     UserCoupons[]
+  id               String              @id @unique @default(uuid())
+  title            String
+  description      String
+  value            String
+  revoked          Boolean             @default(false)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  Orders           Orders[]
+  UserCoupons      UserCoupons[]
 }
 
 model UserCoupons {
-  id              String              @id @unique @default(uuid())
-  userId          String
-  User            User                @relation(fields: [userId], references: [id])
-  couponsId       String
-  Coupons         Coupons             @relation(fields: [couponsId], references: [id])
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
+  id               String              @id @unique @default(uuid())
+  userId           String
+  User             User                @relation(fields: [userId], references: [id])
+  couponsId        String
+  Coupons          Coupons             @relation(fields: [couponsId], references: [id])
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
 }
 
 model ProductsOnOrders {  
-  Products        Products            @relation(fields: [productsId], references: [id])
-  productsId      String
-  Orders          Orders              @relation(fields: [ordersId], references: [id])
-  ordersId        String
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
+  Products         Products            @relation(fields: [productsId], references: [id])
+  productsId       String
+  Orders           Orders              @relation(fields: [ordersId], references: [id])
+  ordersId         String
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
 
   @@id([productsId, ordersId])
 }
 
 model ImageProducts {
-  productsId      String
-  ImageName       String              @unique
-  Products        Products            @relation(fields: [productsId], references: [id])
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
+  productsId       String
+  ImageName        String              @unique
+  Products         Products            @relation(fields: [productsId], references: [id])
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
 
   @@id([ImageName])
 }
