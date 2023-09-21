@@ -19,8 +19,8 @@ import routes from './routes';
 const app = express();
 
 app.use(cors());
-app.use(morgan('dev'));
 app.use(helmet());
+app.use(morgan('dev'));
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(logMiddleware);

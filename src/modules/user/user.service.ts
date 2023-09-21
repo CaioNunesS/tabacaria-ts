@@ -71,7 +71,7 @@ export const findAllUsers = async <Key extends keyof User>(
     orderBy: sortBy ? { [sortBy]: sortType } : undefined,
   });
   if (customer.length === 0)
-    throwError('Usuário não encontrado', httpStatus.NOT_FOUND);
+    throwError('Usuário não encontrado.', httpStatus.NOT_FOUND);
 
   return customer as Pick<User, Key>[];
 };
@@ -99,7 +99,7 @@ export const findUserByEmail = async (email: string) => {
 
     return user;
   } catch (error) {
-    throwError('Usuário não encontrado', httpStatus.NOT_FOUND);
+    throwError('Usuário não encontrado.', httpStatus.NOT_FOUND);
   }
 };
 
@@ -120,11 +120,11 @@ export const findUserById = async <Key extends keyof User>(
       where: { id },
       select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
     });
-    if (!getUser) throwError('Usuário não encontrado', httpStatus.NOT_FOUND);
+    if (!getUser) throwError('Usuário não encontrado.', httpStatus.NOT_FOUND);
 
     return getUser as Pick<User, Key>;
   } catch (error) {
-    throwError('Usuário não encontrado ---', httpStatus.NOT_FOUND);
+    throwError('Usuário não encontrado.', httpStatus.NOT_FOUND);
   }
 };
 

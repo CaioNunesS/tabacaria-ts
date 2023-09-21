@@ -25,16 +25,47 @@ type IAddRefreshTokenToWriteList = {
   userId: string;
 };
 
-type IRegister = {
+export type IRegister = {
+  id?: string;
   email: string;
   password: string;
   name: string;
   gitHubId?: string;
   googleId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 type IRefreshToken = {
   refreshToken: string;
+};
+
+export const register = async ({
+  email,
+  password,
+  name,
+  gitHubId,
+  googleId,
+}: IRegister) => {
+  try {
+    const userEmail = await findUserByEmail(email);
+
+    if (userEmail) throwError('Email já cadastrado', httpStatus.BAD_REQUEST);
+
+    const user = await createUser({
+      email,
+      password,
+      name,
+      gitHubId,
+      googleId,
+    });
+
+    if (user) {
+      return await returnResponse(user);
+    }
+  } catch (error) {
+    throwError('Erro ao cadastrar usuário', httpStatus.BAD_REQUEST);
+  }
 };
 
 export const addRefreshTokenToWriteList = ({
@@ -83,34 +114,6 @@ export const revokeTokens = (userId: string) => {
     where: { userId },
     data: { revoked: true },
   });
-};
-
-export const register = async ({
-  email,
-  password,
-  name,
-  gitHubId,
-  googleId,
-}: IRegister) => {
-  try {
-    const userEmail = await findUserByEmail(email);
-
-    if (userEmail) throwError('Email já cadastrado', httpStatus.BAD_REQUEST);
-
-    const user = await createUser({
-      email,
-      password,
-      name,
-      gitHubId,
-      googleId,
-    });
-
-    if (user) {
-      return await returnResponse(user);
-    }
-  } catch (error) {
-    throwError('Erro ao cadastrar usuário', httpStatus.BAD_REQUEST);
-  }
 };
 
 export const authenticatedUserByEmailAndPassword = async (
