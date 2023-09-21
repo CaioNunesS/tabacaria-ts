@@ -10,6 +10,7 @@ export type IuserCreate = {
   email: string;
   password: string;
   name: string;
+  phoneNumber: string;
   gitHubId?: string;
   googleId?: string;
   role?: Role;
@@ -40,6 +41,7 @@ export const findAllUsers = async <Key extends keyof User>(
     id?: string;
     name?: string;
     email?: string;
+    phoneNumber?: string;
     ativo?: boolean;
   },
   options: {
@@ -53,6 +55,7 @@ export const findAllUsers = async <Key extends keyof User>(
     'name',
     'ativo',
     'email',
+    'phoneNumber',
     'role',
     'createdAt',
     'updatedAt',
@@ -87,6 +90,7 @@ export const findUserByEmail = async (email: string) => {
         name: true,
         ativo: true,
         email: true,
+        phoneNumber: true,
         role: true,
         createdAt: true,
         updatedAt: true,
@@ -110,6 +114,7 @@ export const findUserById = async <Key extends keyof User>(
     'name',
     'ativo',
     'email',
+    'phoneNumber',
     'role',
     'createdAt',
     'updatedAt',
@@ -135,6 +140,7 @@ export const findUserByGoogleId = async <Key extends keyof User>(
     'name',
     'ativo',
     'email',
+    'phoneNumber',
     'role',
     'googleId',
     'createdAt',
@@ -145,7 +151,7 @@ export const findUserByGoogleId = async <Key extends keyof User>(
     where: { id: googleId },
     select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
   });
-  if (!result) throwError('Usuário não encontrado ---', httpStatus.NOT_FOUND);
+  if (!result) throwError('Usuário não encontrado', httpStatus.NOT_FOUND);
 
   return result as Pick<User, Key>;
 };
@@ -158,6 +164,7 @@ export const updateUser = async <Key extends keyof User>(
     'name',
     'ativo',
     'email',
+    'phoneNumber',
     'googleId',
     'role',
     'createdAt',
@@ -169,6 +176,7 @@ export const updateUser = async <Key extends keyof User>(
     'name',
     'ativo',
     'email',
+    'phoneNumber',
     'googleId',
     'role',
     'createdAt',

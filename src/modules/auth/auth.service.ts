@@ -30,6 +30,7 @@ export type IRegister = {
   email: string;
   password: string;
   name: string;
+  phoneNumber: string;
   gitHubId?: string;
   googleId?: string;
   createdAt?: Date;
@@ -44,27 +45,25 @@ export const register = async ({
   email,
   password,
   name,
+  phoneNumber,
   gitHubId,
   googleId,
 }: IRegister) => {
-  try {
-    const userEmail = await findUserByEmail(email);
+  const userEmail = await findUserByEmail(email);
 
-    if (userEmail) throwError('Email já cadastrado', httpStatus.BAD_REQUEST);
+  if (userEmail) throwError('Email já cadastrado', httpStatus.BAD_REQUEST);
 
-    const user = await createUser({
-      email,
-      password,
-      name,
-      gitHubId,
-      googleId,
-    });
+  const user = await createUser({
+    email,
+    password,
+    name,
+    phoneNumber,
+    gitHubId,
+    googleId,
+  });
 
-    if (user) {
-      return await returnResponse(user);
-    }
-  } catch (error) {
-    throwError('Erro ao cadastrar usuário', httpStatus.BAD_REQUEST);
+  if (user) {
+    return await returnResponse(user);
   }
 };
 

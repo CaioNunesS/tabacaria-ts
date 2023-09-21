@@ -9,6 +9,7 @@ describe('register user schema', () => {
           email: 'kevin_ribeiro@prestec.com.br',
           name: 'Kevin Antonio Ribeiro',
           password: 'G874KxZ763',
+          phoneNumber: '11943956693',
         },
       };
       const schema = registerSchema.safeParse(validInput);
@@ -106,10 +107,128 @@ describe('register user schema', () => {
         );
       }
     });
+
+    it('should return an error for a body without "phoneNumber"', () => {
+      const invalidInput = {
+        body: {
+          email: 'kevin_ribeiro@prestec.com.br',
+          name: 'Kevin Antonio Ribeiro',
+          password: 'G874KxZ763',
+        },
+      };
+      const schema = registerSchema.safeParse(invalidInput);
+      if (!schema.success) {
+        expect(schema.error.issues[0].message).toEqual(
+          'O phoneNumber é um campo obrigatório'
+        );
+      }
+    });
+
+    it('should return an error for a body with an invalid cell phone phoneNumber (too much numbers) ', () => {
+      const invalidInput = {
+        body: {
+          email: 'kevin_ribeiro@prestec.com.br',
+          name: 'Kevin Antonio Ribeiro',
+          password: 'G874KxZ763',
+          phoneNumber: '1194395669',
+        },
+      };
+      const schema = registerSchema.safeParse(invalidInput);
+      if (!schema.success) {
+        expect(schema.error.issues[0].message).toEqual(
+          'O telefone informado é inválido'
+        );
+      }
+    });
+
+    it('should return an error for a body with an invalid cell phone phoneNumber (few numbers) ', () => {
+      const invalidInput = {
+        body: {
+          email: 'kevin_ribeiro@prestec.com.br',
+          name: 'Kevin Antonio Ribeiro',
+          password: 'G874KxZ763',
+          phoneNumber: '119439566934',
+        },
+      };
+      const schema = registerSchema.safeParse(invalidInput);
+      if (!schema.success) {
+        expect(schema.error.issues[0].message).toEqual(
+          'O telefone informado é inválido'
+        );
+      }
+    });
+
+    it('should return an error for a body with an invalid cell phone phoneNumber (without 9) ', () => {
+      const invalidInput = {
+        body: {
+          email: 'kevin_ribeiro@prestec.com.br',
+          name: 'Kevin Antonio Ribeiro',
+          password: 'G874KxZ763',
+          phoneNumber: '11843956693',
+        },
+      };
+      const schema = registerSchema.safeParse(invalidInput);
+      if (!schema.success) {
+        expect(schema.error.issues[0].message).toEqual(
+          'O telefone informado é inválido'
+        );
+      }
+    });
+
+    it('should return an error for a body with an invalid landline phoneNumber (too much numbers)', () => {
+      const invalidInput = {
+        body: {
+          email: 'kevin_ribeiro@prestec.com.br',
+          name: 'Kevin Antonio Ribeiro',
+          password: 'G874KxZ763',
+          phoneNumber: '11439566934',
+        },
+      };
+      const schema = registerSchema.safeParse(invalidInput);
+      if (!schema.success) {
+        expect(schema.error.issues[0].message).toEqual(
+          'O telefone informado é inválido'
+        );
+      }
+    });
+
+    it('should return an error for a body with an invalid landline phoneNumber (few numbers)', () => {
+      const invalidInput = {
+        body: {
+          email: 'kevin_ribeiro@prestec.com.br',
+          name: 'Kevin Antonio Ribeiro',
+          password: 'G874KxZ763',
+          phoneNumber: '114395669',
+        },
+      };
+      const schema = registerSchema.safeParse(invalidInput);
+      if (!schema.success) {
+        expect(schema.error.issues[0].message).toEqual(
+          'O telefone informado é inválido'
+        );
+      }
+    });
+
+    it('should return an error for a body with an invalid phoneNumber (char)', () => {
+      const invalidInput = {
+        body: {
+          email: 'kevin_ribeiro@prestec.com.br',
+          name: 'Kevin Antonio Ribeiro',
+          password: 'G874KxZ763',
+          phoneNumber: 'abacate',
+        },
+      };
+      const schema = registerSchema.safeParse(invalidInput);
+      if (!schema.success) {
+        expect(schema.error.issues[0].message).toEqual(
+          'O telefone informado é inválido'
+        );
+      }
+    });
   });
 });
 
-describe.only('Login schema', () => {
+describe('Login schema', () => {
   describe('when a valid body', () => {
     it('should validates a body with all fields', () => {
       const validInput = {

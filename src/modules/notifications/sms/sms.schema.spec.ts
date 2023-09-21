@@ -6,7 +6,7 @@ describe('Send sms schema', () => {
     it('should validates a body with all fields', () => {
       const validInput = {
         body: {
-          phone: '+5511943956693',
+          phone: '11943956693',
           name: 'Hello world',
         },
       };
@@ -34,7 +34,7 @@ describe('Send sms schema', () => {
     it('should return an error for a body without "name"', () => {
       const invalidInput = {
         body: {
-          phone: '+5511943956693',
+          phone: '11943956693',
         },
       };
       const schema = smsSchema.safeParse(invalidInput);
@@ -76,7 +76,7 @@ describe('Send sms schema', () => {
       }
     });
 
-    it('should return an error for a body with "phone" with invalid regex type', () => {
+    it('should return an error for a body with "phone" with invalid regex type (without 11)', () => {
       const invalidInput = {
         body: {
           phone: '943956693',
@@ -92,7 +92,7 @@ describe('Send sms schema', () => {
       }
     });
 
-    it('should return an error for a body with "phone" with invalid regex type: "without +"', () => {
+    it('should return an error for a body with "phone" with invalid regex type: "too much numbers"', () => {
       const invalidInput = {
         body: {
           phone: '5511943956693',

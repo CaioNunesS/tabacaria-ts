@@ -1,4 +1,5 @@
 import { object, string } from 'zod';
+import { phoneRegex } from '../../utils/regex';
 
 export const registerSchema = object({
   body: object({
@@ -15,6 +16,9 @@ export const registerSchema = object({
     })
       .min(6, 'Deve ter ao menos 6 caracteres')
       .trim(),
+    phoneNumber: string({
+      required_error: 'O phoneNumber é um campo obrigatório',
+    }).regex(phoneRegex, { message: 'O telefone informado é inválido' }),
   }),
 });
 
