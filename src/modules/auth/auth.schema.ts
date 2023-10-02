@@ -1,5 +1,6 @@
 import { object, string } from 'zod';
 import { phoneRegex } from '../../utils/regex';
+import { IChangePassword } from '../auth/auth.service';
 
 export const registerSchema = object({
   body: object({
@@ -65,3 +66,24 @@ export const revokeTokenSchema = object({
     }).uuid({ message: 'Padrão inválido para uuid' }),
   }),
 });
+
+export const validateChangePassword = (body: IChangePassword) => {
+  const user = object({
+    newPassword: string({
+      required_error: 'O newPassword é um campo obrigatório',
+    })
+      .trim()
+      .min(6)
+      .max(255),
+    confirmNewPassword: string({
+      required_error: 'O confirmNewPassword é um campo obrigatório',
+    })
+      .trim()
+      .min(6)
+      .max(255),
+  }).refine(
+    ({ newPassword, confirmNewPassword }) => newPassword === confirmNewPassword,
+    { message: 'As senhas não são iguais' }
+  );
+  return user.safeParse(body);
+};

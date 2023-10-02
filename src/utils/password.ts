@@ -8,10 +8,11 @@ export const comparePassword = async (email: string, password: string) => {
 
     if (!existUser) {
       throwError('Usuário não encontrado', 404);
+      return null;
     }
 
-    if (existUser) {
-      const isPasswordMatch = await compare(password, existUser.password);
+    if (existUser && existUser.password !== null) {
+      const isPasswordMatch = compare(password, existUser.password);
       if (!isPasswordMatch) throwError('Senha ou email incorreto', 404);
     }
 

@@ -3,10 +3,13 @@ import passport from 'passport';
 
 import { validate, asyncWrapper } from './../../middleware/index';
 import {
+  changePassword,
   create,
   login,
   refreshToken,
   revokeRefreshToken,
+  sendCode,
+  verificationCodeSended,
 } from './auth.controller';
 import { handleGoogleAuth } from './OAuth/google/google.controller';
 
@@ -31,6 +34,10 @@ authRoutes.post(
   validate(revokeTokenSchema),
   asyncWrapper(revokeRefreshToken)
 );
+authRoutes.post('/send-verification-code', asyncWrapper(sendCode));
+
+authRoutes.post('/verify-code', asyncWrapper(verificationCodeSended));
+authRoutes.post('/change-password/:id', asyncWrapper(changePassword));
 
 authRoutes.get(
   '/google',

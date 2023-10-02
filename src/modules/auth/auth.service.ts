@@ -17,7 +17,16 @@ import {
   createUser,
   findUserByEmail,
   findUserById,
+  findUserByPhoneNumber,
+  updateUser,
 } from '../user/user.service';
+import { validateChangePassword } from './auth.schema';
+import { ZodError } from 'zod';
+import { generateRandomCode } from '../../utils/generateRandomCode';
+import { sendMail } from '../notifications/email/email.service';
+import { generateVerificationEmailHTML } from '../../templates/email/verificationCode';
+import { verificationCodeSms } from '../../templates/sms/verificationCode';
+import { sendSms } from '../notifications/sms/sms.service';
 
 type IAddRefreshTokenToWriteList = {
   jwtId: string;
@@ -36,6 +45,11 @@ export type IRegister = {
   createdAt?: Date;
   updatedAt?: Date;
 };
+
+export interface IChangePassword {
+  newPassword: string;
+  confirmNewPassword: string;
+}
 
 type IRefreshToken = {
   refreshToken: string;
@@ -162,6 +176,103 @@ export const refreshToken = async ({ refreshToken }: IRefreshToken) => {
   } catch (error) {
     throwError('Erro ao autenticar usuário', httpStatus.BAD_REQUEST);
   }
+};
+
+export const sendVerificationCode = async (email?: string, phone?: string) => {
+  const code = generateRandomCode(6);
+  try {
+    if (email) {
+      const getUser = await findUserByEmail(email);
+      if (getUser) {
+        const { id } = getUser;
+
+        const emailBody = {
+          to: email,
+          subject: 'Código de verificação',
+          html: generateVerificationEmailHTML(code),
+        };
+        await sendMail(emailBody);
+        await updateUser(id, { verificationCode: code });
+      }
+    }
+    if (phone) {
+      const getUser = await findUserByPhoneNumber(phone);
+
+      if (getUser && getUser !== null) {
+        const { phoneNumber, id, name } = getUser;
+
+        const message = await verificationCodeSms({ name, code });
+
+        if (phoneNumber) {
+          await sendSms({ message, phone: `+55${phoneNumber}` });
+          await updateUser(id, { verificationCode: code });
+        }
+      } else {
+        throwError(
+          'Não foi possivel completar a açãooo',
+          httpStatus.BAD_REQUEST
+        );
+      }
+    }
+  } catch (error) {
+    throwError('Não foi possivel completar a ação', httpStatus.BAD_REQUEST);
+  }
+};
+
+export const verifyCode = async (
+  code: string,
+  email?: string,
+  phoneNumber?: string
+) => {
+  if (email) {
+    const userData = await findUserByEmail(email);
+    if (userData) {
+      const { id, verificationCode } = userData;
+
+      if (verificationCode !== code) {
+        throwError('Código inválido', httpStatus.BAD_REQUEST);
+      }
+
+      await updateUser(id, { verificationCode: null });
+
+      return 'okay';
+    }
+  }
+  if (phoneNumber) {
+    const userData = await findUserByPhoneNumber(phoneNumber);
+    if (userData) {
+      const { id, verificationCode } = userData;
+
+      if (verificationCode !== code) {
+        throwError('Código inválido', httpStatus.BAD_REQUEST);
+      }
+
+      await updateUser(id, { verificationCode: null });
+
+      return 'okay';
+    }
+  }
+};
+
+export const changePasswordServ = async (
+  id: string,
+  changedPassword: IChangePassword
+) => {
+  try {
+    validateChangePassword(changedPassword);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      throwError(error.message, httpStatus.BAD_REQUEST);
+    }
+    throwError('Erro no servidor', httpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  const { confirmNewPassword, newPassword } = changedPassword;
+  if (newPassword !== confirmNewPassword) {
+    throwError('As senhas não são iguais', httpStatus.BAD_REQUEST);
+  }
+
+  return await updateUser(id, { password: newPassword });
 };
 
 const returnResponse = async (user: User) => {

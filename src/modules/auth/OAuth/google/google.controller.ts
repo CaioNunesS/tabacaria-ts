@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { registerWithGoogle } from './google.service';
 
 import { env } from '../../../../env';
-// import { throwError } from '../../../../utils';
 
 export const handleGoogleAuth = async (req: Request, res: Response) => {
   try {
@@ -19,6 +18,6 @@ export const handleGoogleAuth = async (req: Request, res: Response) => {
       res.send(responseObject);
     }
   } catch (error) {
-    console.log('error =====>', error);
+    console.log('error', error);
   }
 };

@@ -166,6 +166,7 @@ export const updateUser = async <Key extends keyof User>(
     'email',
     'phoneNumber',
     'googleId',
+    'verificationCode',
     'role',
     'createdAt',
     'updatedAt',
@@ -178,6 +179,7 @@ export const updateUser = async <Key extends keyof User>(
     'email',
     'phoneNumber',
     'googleId',
+    'verificationCode',
     'role',
     'createdAt',
     'updatedAt',
@@ -198,4 +200,29 @@ export const deleteUser = async (userId: string): Promise<User> => {
   if (!user) throwError('Usuário não encontrado', httpStatus.NOT_FOUND);
 
   return await db.user.delete({ where: { id: userId } });
+};
+
+export const findUserByPhoneNumber = async (phoneNumber: string) => {
+  try {
+    const user = await db.user.findFirst({
+      where: { phoneNumber: phoneNumber },
+      select: {
+        id: true,
+        name: true,
+        ativo: true,
+        email: true,
+        phoneNumber: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+        gitHubId: true,
+        googleId: true,
+        password: true,
+        verificationCode: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    throwError('Usuário não encontrado.', httpStatus.NOT_FOUND);
+  }
 };
