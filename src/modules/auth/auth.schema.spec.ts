@@ -24,6 +24,7 @@ describe('register user schema', () => {
         body: {
           name: 'Kevin Antonio Ribeiro',
           password: 'G874KxZ763',
+          phoneNumber: '11943956693',
         },
       };
       const schema = registerSchema.safeParse(invalidInput);
@@ -40,6 +41,7 @@ describe('register user schema', () => {
           email: 'kevin_ribeiroprestec.com.br',
           name: 'Kevin Antonio Ribeiro',
           password: 'G874KxZ763',
+          phoneNumber: '11943956693',
         },
       };
       const schema = registerSchema.safeParse(invalidInput);
@@ -54,6 +56,7 @@ describe('register user schema', () => {
           email: 'kevin_ribeiro@prestec.',
           name: 'Kevin Antonio Ribeiro',
           password: 'G874KxZ763',
+          phoneNumber: '11943956693',
         },
       };
       const schema = registerSchema.safeParse(invalidInput);
@@ -67,12 +70,13 @@ describe('register user schema', () => {
         body: {
           email: 'kevin_ribeiro@prestec.com.br',
           password: 'G874KxZ763',
+          phoneNumber: '11943956693',
         },
       };
       const schema = registerSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'Name é um campo obrigatório'
+          'Nome é um campo obrigatório'
         );
       }
     });
@@ -83,12 +87,13 @@ describe('register user schema', () => {
           name: ' ',
           email: 'kevin_ribeiro@prestec.com.br',
           password: 'G874KxZ763',
+          phoneNumber: '11943956693',
         },
       };
       const schema = registerSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'O name deve ter ao menos 3 caracteres'
+          'O nome deve ter ao menos 3 caracteres'
         );
       }
     });
@@ -98,12 +103,13 @@ describe('register user schema', () => {
         body: {
           email: 'kevin_ribeiro@prestec.com.br',
           name: 'Kevin Antonio Ribeiro',
+          phoneNumber: '11943956693',
         },
       };
       const schema = registerSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'Password é um campo obrigatório'
+          'Senha é um campo obrigatório'
         );
       }
     });
@@ -250,7 +256,7 @@ describe('Login schema', () => {
           password: 'G874KxZ763',
         },
       };
-      const schema = registerSchema.safeParse(invalidInput);
+      const schema = loginSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
           'Email é um campo obrigatório'
@@ -268,7 +274,9 @@ describe('Login schema', () => {
       };
       const schema = loginSchema.safeParse(invalidInput);
       if (!schema.success) {
-        expect(schema.error.issues[0].message).toEqual('Email inválido');
+        expect(schema.error.issues[0].message).toEqual(
+          'Senha ou email incorretos'
+        );
       }
     });
 
@@ -282,7 +290,9 @@ describe('Login schema', () => {
       };
       const schema = loginSchema.safeParse(invalidInput);
       if (!schema.success) {
-        expect(schema.error.issues[0].message).toEqual('Email inválido');
+        expect(schema.error.issues[0].message).toEqual(
+          'Senha ou email incorretos'
+        );
       }
     });
 
@@ -295,7 +305,7 @@ describe('Login schema', () => {
       const schema = loginSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'Password é um campo obrigatório'
+          'Senha é um campo obrigatório'
         );
       }
     });

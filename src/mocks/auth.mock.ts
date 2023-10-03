@@ -4,6 +4,7 @@ import { IRegister } from '../modules/auth/auth.service';
 
 export const createDataMock: IRegister = {
   id: uuid(),
+  phoneNumber: '11943956693',
   email: faker.internet.email(),
   password: faker.word.sample(),
   name: faker.word.sample(),

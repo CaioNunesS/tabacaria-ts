@@ -4,22 +4,22 @@ import { IChangePassword } from '../auth/auth.service';
 
 export const registerSchema = object({
   body: object({
+    name: string({
+      required_error: 'Nome é um campo obrigatório',
+    })
+      .min(3, 'O nome deve ter ao menos 3 caracteres')
+      .trim(),
     email: string({
       required_error: 'Email é um campo obrigatório',
     }).email({ message: 'Email inválido' }),
-    name: string({
-      required_error: 'Name é um campo obrigatório',
-    })
-      .min(3, 'O name deve ter ao menos 3 caracteres')
-      .trim(),
-    password: string({
-      required_error: 'Password é um campo obrigatório',
-    })
-      .min(6, 'Deve ter ao menos 6 caracteres')
-      .trim(),
     phoneNumber: string({
       required_error: 'O phoneNumber é um campo obrigatório',
     }).regex(phoneRegex, { message: 'O telefone informado é inválido' }),
+    password: string({
+      required_error: 'Senha é um campo obrigatório',
+    })
+      .min(6, 'A senha deve ter ao menos 6 caracteres')
+      .trim(),
   }),
 });
 
@@ -36,7 +36,7 @@ export const registerCompleteSchema = object({
     }),
     password: string({
       required_error: 'Password é um campo obrigatório',
-    }).min(6, 'Deve ter ao menos 6 caracteres'),
+    }).min(6, 'A senha deve ter ao menos 6 caracteres'),
   }),
 });
 
@@ -44,10 +44,10 @@ export const loginSchema = object({
   body: object({
     email: string({
       required_error: 'Email é um campo obrigatório',
-    }).email({ message: 'Email inválido' }),
+    }).email({ message: 'Senha ou email incorretos' }),
     password: string({
-      required_error: 'Password é um campo obrigatório',
-    }).min(6, 'Deve ter ao menos 6 caracteres'),
+      required_error: 'Senha é um campo obrigatório',
+    }).min(6, 'Senha ou email incorretos'),
   }),
 });
 
