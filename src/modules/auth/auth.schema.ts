@@ -6,6 +6,7 @@ export const registerSchema = object({
   body: object({
     name: string({
       required_error: 'Nome é um campo obrigatório',
+      description: 'teste',
     })
       .min(3, 'O nome deve ter ao menos 3 caracteres')
       .trim(),

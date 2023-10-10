@@ -7,6 +7,7 @@ import couponRoutes from './modules/coupons/coupon.routes';
 import orderRoutes from './modules/orders/order.routes';
 import logRoutes from './modules/logs/logs.routes';
 import notificationRoutes from './modules/notifications/notification.routes';
+import addressRoutes from './modules/address/address.routes';
 
 const routes = Router();
 
@@ -18,5 +19,6 @@ routes.use('/coupon', couponRoutes);
 routes.use('/order', orderRoutes);
 routes.use('/log', logRoutes);
 routes.use('/notification', notificationRoutes);
+routes.use('/address', addressRoutes);
 
 export default routes;

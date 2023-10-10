@@ -14,12 +14,12 @@ export type IcreateProduct = {
 };
 
 type updateProductResponse = {
-  id: string;
+  id?: string;
   name: string;
   price: string;
   description: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export const createProduct = async ({

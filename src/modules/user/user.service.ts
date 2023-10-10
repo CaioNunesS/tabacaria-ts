@@ -125,6 +125,7 @@ export const findUserById = async <Key extends keyof User>(
       where: { id },
       select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
     });
+
     if (!getUser) throwError('Usuário não encontrado.', httpStatus.NOT_FOUND);
 
     return getUser as Pick<User, Key>;

@@ -17,24 +17,41 @@ enum Role {
 }
 
 model User {
-  id               String             @id @unique @default(uuid())
-  ativo            Boolean            @default(true)
+  id               String              @id @unique @default(uuid())
+  ativo            Boolean             @default(true)
   name             String
-  email            String             @unique
+  email            String              @unique
   password         String?
-  gitHubId         String?            @unique @db.Text
-  googleId         String?            @unique @db.Text
-  verificationCode String?            @unique @db.Text
+  gitHubId         String?             @unique @db.Text
+  googleId         String?             @unique @db.Text
+  verificationCode String?             @unique @db.Text
   phoneNumber      String?        
   refreshTokens    RefreshToken[]
   orders           Orders[]
-  role             Role               @default(CLIENT)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  UserCoupons      UserCoupons[]
-}
+  role             Role                @default(CLIENT)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  UserCoupons      UserCoupons[]      
+  addresses        Address[]          
+}                                     
 
-model RefreshToken {
+model Address {                       
+  id               String              @id @unique @default(uuid())
+  street           String             
+  city             String     
+  state            String        
+  neighborhood     String             
+  number           String             
+  zipCode          String             
+  AdditionalData   String?            
+  userId           String    
+  active           Boolean? 
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt        
+  User             User                @relation(fields: [userId], references: [id])
+}                                     
+
+model RefreshToken {                  
   id               String              @id @unique @default(uuid())
   hashedToken      String
   userId           String
