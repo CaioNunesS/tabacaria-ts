@@ -107,6 +107,7 @@ export const findAllProducts = async <Key extends keyof Products>(
     'id',
     'name',
     'price',
+    'description',
     'createdAt',
     'updatedAt',
     'ativo',
