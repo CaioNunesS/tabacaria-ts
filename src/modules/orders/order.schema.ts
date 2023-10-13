@@ -8,5 +8,5 @@ export const orderSchema = object({
       .array()
       .nonempty(),
   }),
-  couponId: string().optional(),
+  couponId: string().trim().optional(),
 });

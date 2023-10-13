@@ -6,3 +6,7 @@ export const phoneRegex = /^(?:(?![1-9]{2}9)\d{10}|[1-9]{2}9\d{8})$/;
 export const emailRegex = /^[\w\.-]+@[\w\.-]+\.\w+$/;
 
 export const valueRegex = /^\d+(\.\d+)?$/;
+
+export const cepRegex = /^\d{8}$/;
+
+export const apenasNumerosRegex = /^[0-9]+$/;

@@ -6,10 +6,10 @@ export const registerSchema = object({
   body: object({
     name: string({
       required_error: 'Nome é um campo obrigatório',
-      description: 'teste',
     })
-      .min(3, 'O nome deve ter ao menos 3 caracteres')
-      .trim(),
+      .trim()
+      .min(1, 'Nome é um campo obrigatório')
+      .min(3, 'O nome deve ter ao menos 3 caracteres'),
     email: string({
       required_error: 'Email é um campo obrigatório',
     }).email({ message: 'Email inválido' }),
@@ -19,8 +19,9 @@ export const registerSchema = object({
     password: string({
       required_error: 'Senha é um campo obrigatório',
     })
-      .min(6, 'A senha deve ter ao menos 6 caracteres')
-      .trim(),
+      .trim()
+      .min(1, 'Senha é um campo obrigatório')
+      .min(6, 'A senha deve ter ao menos 6 caracteres'),
   }),
 });
 
@@ -28,16 +29,20 @@ export const registerCompleteSchema = object({
   body: object({
     email: string({
       required_error: 'Email é um campo obrigatório',
-    }).email(),
+    })
+      .trim()
+      .email(),
     name: string({
       required_error: 'Nome é um campo obrigatório',
-    }),
+    }).trim(),
     gitHubId: string({
       required_error: 'GitHubId é um campo obrigatório',
     }),
     password: string({
       required_error: 'Password é um campo obrigatório',
-    }).min(6, 'A senha deve ter ao menos 6 caracteres'),
+    })
+      .trim()
+      .min(6, 'A senha deve ter ao menos 6 caracteres'),
   }),
 });
 
@@ -45,10 +50,14 @@ export const loginSchema = object({
   body: object({
     email: string({
       required_error: 'Email é um campo obrigatório',
-    }).email({ message: 'Senha ou email incorretos' }),
+    })
+      .trim()
+      .email({ message: 'Senha ou email incorretos' }),
     password: string({
       required_error: 'Senha é um campo obrigatório',
-    }).min(6, 'Senha ou email incorretos'),
+    })
+      .trim()
+      .min(6, 'Senha ou email incorretos'),
   }),
 });
 
