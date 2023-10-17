@@ -93,7 +93,7 @@ describe('register user schema', () => {
       const schema = registerSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'O nome deve ter ao menos 3 caracteres'
+          'Nome é um campo obrigatório'
         );
       }
     });

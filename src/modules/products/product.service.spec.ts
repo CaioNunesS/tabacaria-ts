@@ -250,7 +250,7 @@ describe('Product Service', () => {
       expect(result).toEqual({ ...queryProductById, ...updateBody });
     });
 
-    it('should throws an error if the order is not found', async () => {
+    it('should throws an error if the product is not found', async () => {
       const updateBody = { ativo: false };
 
       prismaMock.product.update.mockRejectedValue(

@@ -13,7 +13,7 @@ export interface ICreateAddress {
   number: string;
   zipCode: string;
   userId: string;
-  AdditionalData?: string;
+  AdditionalData?: string | null;
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;

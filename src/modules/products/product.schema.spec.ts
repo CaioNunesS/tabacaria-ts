@@ -17,7 +17,7 @@ describe('register product schema', () => {
     });
   });
 
-  describe('when a invalid body', () => {
+  describe('when an invalid body', () => {
     it('should return an error for a body without "name"', () => {
       const invalidInput = {
         body: {
@@ -31,21 +31,21 @@ describe('register product schema', () => {
           'Name é um campo obrigatório'
         );
       }
+    });
 
-      it('should return an error for a body without "price"', () => {
-        const invalidInput = {
-          body: {
-            name: 'Produto',
-            description: 'Produto x',
-          },
-        };
-        const schema = productSchema.safeParse(invalidInput);
-        if (!schema.success) {
-          expect(schema.error.issues[0].message).toEqual(
-            'Price é um campo obrigatório'
-          );
-        }
-      });
+    it('should return an error for a body without "price"', () => {
+      const invalidInput = {
+        body: {
+          name: 'Produto',
+          description: 'Produto x',
+        },
+      };
+      const schema = productSchema.safeParse(invalidInput);
+      if (!schema.success) {
+        expect(schema.error.issues[0].message).toEqual(
+          'Price é um campo obrigatório'
+        );
+      }
     });
 
     it('should return an error for a body without "description"', () => {
