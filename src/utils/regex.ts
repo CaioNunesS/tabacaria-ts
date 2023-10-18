@@ -10,3 +10,5 @@ export const valueRegex = /^\d+(\.\d+)?$/;
 export const cepRegex = /^\d{8}$/;
 
 export const apenasNumerosRegex = /^[0-9]+$/;
+
+export const onlyLettersRegex = /^[A-Za-z\s]+$/;

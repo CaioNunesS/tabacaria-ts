@@ -93,7 +93,24 @@ describe('register user schema', () => {
       const schema = registerSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'Nome é um campo obrigatório'
+          'Apenas letras são aceitas no nome'
+        );
+      }
+    });
+
+    it('should return an error for a body where "name" is a string of numbers', () => {
+      const invalidInput = {
+        body: {
+          name: '111111',
+          email: 'kevin_ribeiro@prestec.com.br',
+          password: 'G874KxZ763',
+          phoneNumber: '11943956693',
+        },
+      };
+      const schema = registerSchema.safeParse(invalidInput);
+      if (!schema.success) {
+        expect(schema.error.issues[0].message).toEqual(
+          'Apenas letras são aceitas no nome'
         );
       }
     });
@@ -125,7 +142,7 @@ describe('register user schema', () => {
       const schema = registerSchema.safeParse(invalidInput);
       if (!schema.success) {
         expect(schema.error.issues[0].message).toEqual(
-          'O phoneNumber é um campo obrigatório'
+          'O celular é um campo obrigatório'
         );
       }
     });

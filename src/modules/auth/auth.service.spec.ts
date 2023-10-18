@@ -32,6 +32,7 @@ describe('Auth Service', () => {
       expect(result).toHaveProperty('id');
       expect(result).toHaveProperty('name');
       expect(result).toHaveProperty('password');
+      expect(result).toHaveProperty('phoneNumber');
     });
 
     it('should return an error if create request fails', async () => {

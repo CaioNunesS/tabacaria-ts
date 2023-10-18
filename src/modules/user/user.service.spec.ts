@@ -37,6 +37,7 @@ describe('User Service', () => {
       expect(result).toHaveProperty('email');
       expect(result).toHaveProperty('password');
       expect(result).toHaveProperty('name');
+      expect(result).toHaveProperty('phoneNumber');
       expect(result).toEqual(createDataMock);
     });
 
@@ -68,9 +69,18 @@ describe('User Service', () => {
         | 'name'
         | 'email'
         | 'active'
+        | 'phoneNumber'
         | 'createdAt'
         | 'updatedAt'
-      )[] = ['id', 'name', 'email', 'active', 'createdAt', 'updatedAt'];
+      )[] = [
+        'id',
+        'name',
+        'email',
+        'active',
+        'phoneNumber',
+        'createdAt',
+        'updatedAt',
+      ];
       prismaMock.user.findMany.mockResolvedValue(queryUserMock);
 
       const result = await User.findAllUsers(filter, {}, keys);
@@ -92,9 +102,18 @@ describe('User Service', () => {
         | 'name'
         | 'email'
         | 'active'
+        | 'phoneNumber'
         | 'createdAt'
         | 'updatedAt'
-      )[] = ['id', 'name', 'email', 'active', 'createdAt', 'updatedAt'];
+      )[] = [
+        'id',
+        'name',
+        'email',
+        'active',
+        'createdAt',
+        'phoneNumber',
+        'updatedAt',
+      ];
       prismaMock.user.findMany.mockResolvedValue([]);
 
       const result = await User.findAllUsers(filter, {}, keys);
@@ -108,10 +127,19 @@ describe('User Service', () => {
         | 'id'
         | 'name'
         | 'email'
+        | 'phoneNumber'
         | 'active'
         | 'createdAt'
         | 'updatedAt'
-      )[] = ['id', 'name', 'email', 'active', 'createdAt', 'updatedAt'];
+      )[] = [
+        'id',
+        'name',
+        'email',
+        'active',
+        'phoneNumber',
+        'createdAt',
+        'updatedAt',
+      ];
       vi.spyOn(User, 'findAllUsers').mockImplementation(async () => {
         const user = await prismaMock.user.findMany({
           where: { active: true },

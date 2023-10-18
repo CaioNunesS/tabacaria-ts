@@ -13,6 +13,8 @@ export const createDataMock: IuserCreate = {
   googleId: faker.word.sample(),
   verificationCode: faker.word.sample(),
   role: 'CLIENT',
+  phoneNumber: '11943956693',
+  active: true,
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -22,6 +24,7 @@ export const queryUserMock = [
     id: uuid(),
     email: faker.internet.email(),
     active: true,
+    phoneNumber: '11943956693',
     name: faker.word.sample(),
     password: hashSync(faker.word.sample(), 12),
     gitHubId: faker.word.sample(),
@@ -35,6 +38,7 @@ export const queryUserMock = [
     id: uuid(),
     email: faker.internet.email(),
     active: true,
+    phoneNumber: '11943956694',
     name: faker.word.sample(),
     password: hashSync(faker.word.sample(), 12),
     gitHubId: faker.word.sample(),
@@ -51,6 +55,7 @@ export const queryUserById: User = {
   email: faker.internet.email(),
   active: true,
   name: faker.word.sample(),
+  phoneNumber: '11943956694',
   password: hashSync(faker.word.sample(), 12),
   gitHubId: faker.word.sample(),
   googleId: faker.word.sample(),
@@ -65,4 +70,5 @@ export const selectMock = {
   email: true,
   active: true,
   name: true,
+  phoneNumber: true,
 };
