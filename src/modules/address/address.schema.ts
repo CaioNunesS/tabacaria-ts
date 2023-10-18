@@ -1,12 +1,12 @@
 import { object, string } from 'zod';
-import { apenasNumerosRegex, cepRegex } from '../../utils/regex';
+import { onlyNumbersRegex, cepRegex } from '../../utils/regex';
 
 export const addressSchema = object({
   body: object({
     street: string({ required_error: 'Rua é um campo obrigatório' }).trim(),
     number: string({ required_error: 'Número é um campo obrigatório' })
       .trim()
-      .regex(apenasNumerosRegex, {
+      .regex(onlyNumbersRegex, {
         message:
           'O número informado é inválido. Caso tenha letras, informe nas "informações adicionais"',
       }),

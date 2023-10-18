@@ -1,5 +1,5 @@
 import { object, string } from 'zod';
-import { onlyLettersRegex, phoneRegex } from '../../utils/regex';
+import { emailRegex, onlyLettersRegex, phoneRegex } from '../../utils/regex';
 import { IChangePassword } from '../auth/auth.service';
 
 export const registerSchema = object({
@@ -12,7 +12,10 @@ export const registerSchema = object({
       .min(3, 'O nome deve ter ao menos 3 caracteres'),
     email: string({
       required_error: 'Email é um campo obrigatório',
-    }).email({ message: 'Email inválido' }),
+    })
+      .trim()
+      .email({ message: 'Email inválido' })
+      .regex(emailRegex, { message: 'Email inválido' }),
     phoneNumber: string({
       required_error: 'O celular é um campo obrigatório',
     }).regex(phoneRegex, { message: 'O telefone informado é inválido' }),
@@ -30,7 +33,8 @@ export const registerCompleteSchema = object({
       required_error: 'Email é um campo obrigatório',
     })
       .trim()
-      .email(),
+      .email({ message: 'Email inválido' })
+      .regex(emailRegex, { message: 'Email inválido' }),
     name: string({
       required_error: 'Nome é um campo obrigatório',
     }).trim(),
