@@ -8,7 +8,6 @@ export const registerSchema = object({
       required_error: 'Nome é um campo obrigatório',
     })
       .trim()
-      .min(1, 'Nome é um campo obrigatório')
       .min(3, 'O nome deve ter ao menos 3 caracteres'),
     email: string({
       required_error: 'Email é um campo obrigatório',
@@ -20,7 +19,6 @@ export const registerSchema = object({
       required_error: 'Senha é um campo obrigatório',
     })
       .trim()
-      .min(1, 'Senha é um campo obrigatório')
       .min(6, 'A senha deve ter ao menos 6 caracteres'),
   }),
 });

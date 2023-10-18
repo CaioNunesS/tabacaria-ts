@@ -73,9 +73,6 @@ export const createOrder = async ({
     await verifyUserCoupon(userId, couponId);
   }
   return result;
-  // } catch (error) {
-  //   throwError('Erro para criar order', 400)
-  // }
 };
 
 export const findAllOrders = async (
