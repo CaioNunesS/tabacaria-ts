@@ -20,13 +20,14 @@ export type IuserCreate = {
 };
 
 type IupdateUserResponse = {
-  id: string;
-  active: boolean;
-  name: string;
-  email: string;
-  role: string;
-  createdAt: Date;
-  updatedAt: Date;
+  id?: string;
+  active?: boolean;
+  name?: string;
+  email?: string;
+  role?: string;
+  phoneNumber?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export const createUser = async (user: IuserCreate) => {
@@ -172,21 +173,42 @@ export const updateUser = async <Key extends keyof User>(
     'active',
     'email',
     'phoneNumber',
-    'googleId',
-    'verificationCode',
-    'role',
     'createdAt',
     'updatedAt',
   ] as Key[]
 ): Promise<IupdateUserResponse | null> => {
+  const { password, phoneNumber, email } = updateBody;
+
+  if (password) {
+    throwError(
+      'Não é possivel alterar a senha por este meio',
+      httpStatus.BAD_REQUEST
+    );
+  }
+
+  if (phoneNumber) {
+    const existPhoneNumber = await findUserByPhoneNumber(String(phoneNumber));
+    if (existPhoneNumber && existPhoneNumber.id !== userId) {
+      throwError(
+        'O número de telefone já está cadastrado',
+        httpStatus.BAD_REQUEST
+      );
+    }
+  }
+
+  if (email) {
+    const existEmail = await findUserByEmail(String(email));
+    if (existEmail && existEmail.id !== userId) {
+      throwError('O email já está cadastrado', httpStatus.BAD_REQUEST);
+    }
+  }
+
   const user = await findUserById(userId, [
     'id',
     'name',
     'active',
     'email',
     'phoneNumber',
-    'googleId',
-    'verificationCode',
     'role',
     'createdAt',
     'updatedAt',

@@ -7,15 +7,20 @@ import {
   profile,
   updateOne,
 } from './user.controller';
-import { isAuthenticated } from '../../middleware/index';
+import {
+  asyncWrapper,
+  isAuthenticated,
+  validate,
+} from '../../middleware/index';
+import { userUpdateSchema } from './user.schema';
 
 const userRoutes = Router();
 
 userRoutes.get('/profile', isAuthenticated, profile);
-userRoutes.get('/:userId', findOne);
-userRoutes.get('/', findAll);
-userRoutes.get('/', findOneByEmail);
-userRoutes.put('/:userId', updateOne);
-userRoutes.delete('/:userId', deleteOne);
+userRoutes.get('/:userId', asyncWrapper(findOne));
+userRoutes.get('/', asyncWrapper(findAll));
+userRoutes.get('/', asyncWrapper(findOneByEmail));
+userRoutes.put('/:userId', validate(userUpdateSchema), asyncWrapper(updateOne));
+userRoutes.delete('/:userId', asyncWrapper(deleteOne));
 
 export default userRoutes;
