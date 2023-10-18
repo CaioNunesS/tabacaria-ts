@@ -10,13 +10,13 @@ export const createDataMock: IcreateProduct = {
   description: faker.word.sample(),
   createdAt: new Date(),
   updatedAt: new Date(),
-  ativo: true,
+  active: true,
 };
 
 export const queryProduct = [
   {
     id: uuid(),
-    ativo: true,
+    active: true,
     name: faker.word.sample(),
     price: '100',
     description: faker.word.sample(),
@@ -25,7 +25,7 @@ export const queryProduct = [
   },
   {
     id: uuid(),
-    ativo: true,
+    active: true,
     name: faker.word.sample(),
     price: '100',
     description: faker.word.sample(),
@@ -36,7 +36,7 @@ export const queryProduct = [
 
 export const queryProductById: Products = {
   id: '598641f1-1b95-45c0-a11a-37958de2b63c',
-  ativo: true,
+  active: true,
   name: faker.word.sample(),
   price: '100',
   description: faker.word.sample(),
@@ -47,7 +47,7 @@ export const queryProductById: Products = {
 export const products = [
   {
     id: '598641f1-1b95-45c0-a11a-37958de2b63c',
-    ativo: true,
+    active: true,
     name: faker.word.sample(),
     price: '100',
     description: faker.word.sample(),
@@ -56,7 +56,7 @@ export const products = [
   },
   {
     id: '598641f1-1b95-45c0-a11a-37958de2b63r',
-    ativo: true,
+    active: true,
     name: faker.word.sample(),
     price: '100',
     description: faker.word.sample(),
@@ -69,7 +69,7 @@ export const selectMock = {
   id: true,
   name: true,
   description: true,
-  ativo: true,
+  active: true,
   price: true,
   createdAt: true,
   updatedAt: true,

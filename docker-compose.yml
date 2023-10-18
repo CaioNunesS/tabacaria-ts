@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres-database:
     image: postgres
-    container_name: 'postgres-api-prisma-tabacaria-ts'
+    container_name: 'postgres-api-prisma'
     ports:
       - "5432:5432"
     environment:

@@ -5,7 +5,7 @@ import httpStatus from 'http-status';
 
 export type IcreateProduct = {
   id?: string;
-  ativo?: boolean;
+  active?: boolean;
   name: string;
   price: string;
   description: string;
@@ -47,7 +47,7 @@ export const findProductByName = async <Key extends keyof Products>(
   name: string,
   keys: Key[] = [
     'id',
-    'ativo',
+    'active',
     'name',
     'price',
     'description',
@@ -67,7 +67,7 @@ export const findProductById = async <Key extends keyof Products>(
   id: string,
   keys: Key[] = [
     'id',
-    'ativo',
+    'active',
     'name',
     'price',
     'description',
@@ -90,7 +90,7 @@ export const findProductById = async <Key extends keyof Products>(
 export const findAllProducts = async <Key extends keyof Products>(
   filter: {
     id?: string;
-    ativo?: boolean;
+    active?: boolean;
     name?: string;
     price?: string;
     description?: string;
@@ -110,7 +110,7 @@ export const findAllProducts = async <Key extends keyof Products>(
     'description',
     'createdAt',
     'updatedAt',
-    'ativo',
+    'active',
   ] as Key[]
 ): Promise<Pick<Products, Key>[]> => {
   const page = options.page ?? 1;
@@ -142,14 +142,14 @@ export const deleteProduct = async (id: string): Promise<Products> => {
 export const updateProduct = async <Key extends keyof Products>(
   id: string,
   updateBody: Prisma.ProductsUpdateInput,
-  keys: Key[] = ['id', 'name', 'price', 'description', 'ativo'] as Key[]
+  keys: Key[] = ['id', 'name', 'price', 'description', 'active'] as Key[]
 ): Promise<updateProductResponse | null> => {
   const product = await findProductById(id, [
     'id',
     'name',
     'price',
     'description',
-    'ativo',
+    'active',
   ]);
 
   if (!product) throwError('Produto não encontrado', httpStatus.NOT_FOUND);
@@ -168,7 +168,7 @@ export const findProductByImageName = async <Key extends keyof Products>(
   imageName: string,
   keys: Key[] = [
     'id',
-    'ativo',
+    'active',
     'name',
     'price',
     'description',

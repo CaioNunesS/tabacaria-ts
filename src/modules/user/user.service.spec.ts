@@ -52,7 +52,7 @@ describe('User Service', () => {
   describe('when query an user', () => {
     vi.spyOn(User, 'findAllUsers').mockImplementation(async () => {
       const user = await prismaMock.user.findMany({
-        where: { ativo: true },
+        where: { active: true },
         select: selectMock,
         skip: 0,
         take: 10,
@@ -62,15 +62,15 @@ describe('User Service', () => {
       return user;
     });
     it('querys user with default options', async () => {
-      const filter = { ativo: true };
+      const filter = { active: true };
       const keys: (
         | 'id'
         | 'name'
         | 'email'
-        | 'ativo'
+        | 'active'
         | 'createdAt'
         | 'updatedAt'
-      )[] = ['id', 'name', 'email', 'ativo', 'createdAt', 'updatedAt'];
+      )[] = ['id', 'name', 'email', 'active', 'createdAt', 'updatedAt'];
       prismaMock.user.findMany.mockResolvedValue(queryUserMock);
 
       const result = await User.findAllUsers(filter, {}, keys);
@@ -86,15 +86,15 @@ describe('User Service', () => {
     });
 
     it('return an empty array if no user is found', async () => {
-      const filter = { ativo: true };
+      const filter = { active: true };
       const keys: (
         | 'id'
         | 'name'
         | 'email'
-        | 'ativo'
+        | 'active'
         | 'createdAt'
         | 'updatedAt'
-      )[] = ['id', 'name', 'email', 'ativo', 'createdAt', 'updatedAt'];
+      )[] = ['id', 'name', 'email', 'active', 'createdAt', 'updatedAt'];
       prismaMock.user.findMany.mockResolvedValue([]);
 
       const result = await User.findAllUsers(filter, {}, keys);
@@ -102,19 +102,19 @@ describe('User Service', () => {
     });
 
     it('corretly apply the limit and page options', async () => {
-      const filter = { ativo: true };
+      const filter = { active: true };
       const options = { limit: 5, page: 2 };
       const keys: (
         | 'id'
         | 'name'
         | 'email'
-        | 'ativo'
+        | 'active'
         | 'createdAt'
         | 'updatedAt'
-      )[] = ['id', 'name', 'email', 'ativo', 'createdAt', 'updatedAt'];
+      )[] = ['id', 'name', 'email', 'active', 'createdAt', 'updatedAt'];
       vi.spyOn(User, 'findAllUsers').mockImplementation(async () => {
         const user = await prismaMock.user.findMany({
-          where: { ativo: true },
+          where: { active: true },
           select: selectMock,
           skip: 5,
           take: options.limit,
@@ -193,14 +193,14 @@ describe('User Service', () => {
     vi.spyOn(User, 'updateUser').mockImplementation(async () => {
       const user = await prismaMock.user.update({
         where: { id: '598641f1-1b95-45c0-a11a-37958de2b63c' },
-        data: { ativo: false },
+        data: { active: false },
       });
       return user;
     });
     prismaMock.user.findById.mockResolvedValue(queryUserById);
 
     it('updates an user', async () => {
-      const updateBody = { ativo: false };
+      const updateBody = { active: false };
       prismaMock.user.update.mockResolvedValue({
         ...queryUserById,
         ...updateBody,
@@ -216,7 +216,7 @@ describe('User Service', () => {
     });
 
     it('throws an error if the user is not found', async () => {
-      const updateBody = { ativo: false };
+      const updateBody = { active: false };
 
       prismaMock.user.update.mockRejectedValue(new Error('User not found'));
 

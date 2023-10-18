@@ -6,7 +6,7 @@ import httpStatus from 'http-status';
 
 export type IuserCreate = {
   id?: string;
-  ativo?: boolean;
+  active?: boolean;
   email: string;
   password: string;
   name: string;
@@ -21,7 +21,7 @@ export type IuserCreate = {
 
 type IupdateUserResponse = {
   id: string;
-  ativo: boolean;
+  active: boolean;
   name: string;
   email: string;
   role: string;
@@ -30,6 +30,12 @@ type IupdateUserResponse = {
 };
 
 export const createUser = async (user: IuserCreate) => {
+  const { phoneNumber } = user;
+  const existPhoneNumber = await findUserByPhoneNumber(phoneNumber);
+  if (existPhoneNumber) {
+    throwError('Número de telefone já cadastrado', httpStatus.BAD_REQUEST);
+  }
+
   user.password = hashSync(user.password, 12);
   return await db.user.create({
     data: user,
@@ -42,7 +48,7 @@ export const findAllUsers = async <Key extends keyof User>(
     name?: string;
     email?: string;
     phoneNumber?: string;
-    ativo?: boolean;
+    active?: boolean;
   },
   options: {
     limit?: number;
@@ -53,7 +59,7 @@ export const findAllUsers = async <Key extends keyof User>(
   keys: Key[] = [
     'id',
     'name',
-    'ativo',
+    'active',
     'email',
     'phoneNumber',
     'role',
@@ -88,7 +94,7 @@ export const findUserByEmail = async (email: string) => {
       select: {
         id: true,
         name: true,
-        ativo: true,
+        active: true,
         email: true,
         phoneNumber: true,
         role: true,
@@ -112,7 +118,7 @@ export const findUserById = async <Key extends keyof User>(
   keys: Key[] = [
     'id',
     'name',
-    'ativo',
+    'active',
     'email',
     'phoneNumber',
     'role',
@@ -139,7 +145,7 @@ export const findUserByGoogleId = async <Key extends keyof User>(
   keys: Key[] = [
     'id',
     'name',
-    'ativo',
+    'active',
     'email',
     'phoneNumber',
     'role',
@@ -163,7 +169,7 @@ export const updateUser = async <Key extends keyof User>(
   keys: Key[] = [
     'id',
     'name',
-    'ativo',
+    'active',
     'email',
     'phoneNumber',
     'googleId',
@@ -176,7 +182,7 @@ export const updateUser = async <Key extends keyof User>(
   const user = await findUserById(userId, [
     'id',
     'name',
-    'ativo',
+    'active',
     'email',
     'phoneNumber',
     'googleId',
@@ -210,7 +216,7 @@ export const findUserByPhoneNumber = async (phoneNumber: string) => {
       select: {
         id: true,
         name: true,
-        ativo: true,
+        active: true,
         email: true,
         phoneNumber: true,
         role: true,
@@ -218,7 +224,7 @@ export const findUserByPhoneNumber = async (phoneNumber: string) => {
         updatedAt: true,
         gitHubId: true,
         googleId: true,
-        password: true,
+        password: false,
         verificationCode: true,
       },
     });

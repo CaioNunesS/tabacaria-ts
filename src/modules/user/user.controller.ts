@@ -19,7 +19,7 @@ export const profile = async (req: Request, res: Response) => {
 };
 
 export const findAll = async (req: Request, res: Response) => {
-  const filter = pick(req.query, ['id', 'name', 'email', 'createdAt', 'ativo']);
+  const filter = pick(req.query, ['id', 'name', 'email', 'createdAt', 'active']);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortType']);
   const result = await findAllUsers(filter, options);
 

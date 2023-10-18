@@ -21,7 +21,7 @@ export const queryUserMock = [
   {
     id: uuid(),
     email: faker.internet.email(),
-    ativo: true,
+    active: true,
     name: faker.word.sample(),
     password: hashSync(faker.word.sample(), 12),
     gitHubId: faker.word.sample(),
@@ -34,7 +34,7 @@ export const queryUserMock = [
   {
     id: uuid(),
     email: faker.internet.email(),
-    ativo: true,
+    active: true,
     name: faker.word.sample(),
     password: hashSync(faker.word.sample(), 12),
     gitHubId: faker.word.sample(),
@@ -49,7 +49,7 @@ export const queryUserMock = [
 export const queryUserById: User = {
   id: '598641f1-1b95-45c0-a11a-37958de2b63c',
   email: faker.internet.email(),
-  ativo: true,
+  active: true,
   name: faker.word.sample(),
   password: hashSync(faker.word.sample(), 12),
   gitHubId: faker.word.sample(),
@@ -63,6 +63,6 @@ export const queryUserById: User = {
 export const selectMock = {
   id: true,
   email: true,
-  ativo: true,
+  active: true,
   name: true,
 };

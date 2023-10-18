@@ -57,7 +57,7 @@ describe('Product Service', () => {
     it('should querys products with default options', async () => {
       vi.spyOn(Product, 'findAllProducts').mockImplementation(async () => {
         const product = await prismaMock.product.findMany({
-          where: { ativo: true },
+          where: { active: true },
           select: selectMock,
           skip: 0,
           take: 10,
@@ -66,12 +66,12 @@ describe('Product Service', () => {
 
         return product;
       });
-      const filter = { ativo: true };
+      const filter = { active: true };
       const keys: (
         | 'id'
         | 'name'
         | 'description'
-        | 'ativo'
+        | 'active'
         | 'createdAt'
         | 'updatedAt'
         | 'price'
@@ -79,7 +79,7 @@ describe('Product Service', () => {
         'id',
         'name',
         'description',
-        'ativo',
+        'active',
         'createdAt',
         'updatedAt',
         'price',
@@ -99,12 +99,12 @@ describe('Product Service', () => {
     });
 
     it('should return an empty array if no product is found', async () => {
-      const filter = { ativo: true };
+      const filter = { active: true };
       const keys: (
         | 'id'
         | 'name'
         | 'description'
-        | 'ativo'
+        | 'active'
         | 'createdAt'
         | 'updatedAt'
         | 'price'
@@ -112,7 +112,7 @@ describe('Product Service', () => {
         'id',
         'name',
         'description',
-        'ativo',
+        'active',
         'createdAt',
         'updatedAt',
         'price',
@@ -124,13 +124,13 @@ describe('Product Service', () => {
     });
 
     it('should correctly apply the limit and page options', async () => {
-      const filter = { ativo: true };
+      const filter = { active: true };
       const options = { limit: 5, page: 2 };
       const keys: (
         | 'id'
         | 'name'
         | 'description'
-        | 'ativo'
+        | 'active'
         | 'createdAt'
         | 'updatedAt'
         | 'price'
@@ -138,14 +138,14 @@ describe('Product Service', () => {
         'id',
         'name',
         'description',
-        'ativo',
+        'active',
         'createdAt',
         'updatedAt',
         'price',
       ];
       vi.spyOn(Product, 'findAllProducts').mockImplementation(async () => {
         const product = await prismaMock.product.findMany({
-          where: { ativo: true },
+          where: { active: true },
           select: selectMock,
           skip: 5,
           take: options.limit,
@@ -228,14 +228,14 @@ describe('Product Service', () => {
     vi.spyOn(Product, 'updateProduct').mockImplementation(async () => {
       const user = await prismaMock.product.update({
         where: { id: '598641f1-1b95-45c0-a11a-37958de2b63c' },
-        data: { ativo: false },
+        data: { active: false },
       });
       return user;
     });
     prismaMock.product.findById.mockResolvedValue(queryProductById);
 
     it('should updates an product', async () => {
-      const updateBody = { ativo: false };
+      const updateBody = { active: false };
       prismaMock.product.update.mockResolvedValue({
         ...queryProductById,
         ...updateBody,
@@ -251,7 +251,7 @@ describe('Product Service', () => {
     });
 
     it('should throws an error if the product is not found', async () => {
-      const updateBody = { ativo: false };
+      const updateBody = { active: false };
 
       prismaMock.product.update.mockRejectedValue(
         new Error('Product not found')
