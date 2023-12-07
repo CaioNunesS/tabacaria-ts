@@ -19,6 +19,8 @@ export const userUpdateSchema = object({
       .optional(),
     phoneNumber: string({
       required_error: 'O celular é um campo obrigatório',
-    }).regex(phoneRegex, { message: 'O telefone informado é inválido' }),
+    })
+      .regex(phoneRegex, { message: 'O telefone informado é inválido' })
+      .optional(),
   }),
 });

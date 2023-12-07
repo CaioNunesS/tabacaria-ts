@@ -220,7 +220,9 @@ describe('Product Service', () => {
         new Error('product not found')
       );
       // eslint-disable-next-line prettier/prettier
-      await expect(Product.deleteProduct('598641f1-1b95-45c0-a11a-37958de2b635')).rejects.toThrow(new Error('product not found'))
+      await expect(Product.deleteProduct('598641f1-1b95-45c0-a11a-37958de2b635')).rejects.toThrow(
+        new Error('product not found')
+        )
     });
   });
 
