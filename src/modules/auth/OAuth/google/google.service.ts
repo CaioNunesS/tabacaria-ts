@@ -1,4 +1,4 @@
-import { findUserByEmail, updateUser } from '../../../user/user.service';
+import { findUserByEmail, updateUser } from '../../../user/services';
 import { db } from '../../../../config/index';
 
 type IregisterWithGoogle = {

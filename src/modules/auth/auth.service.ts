@@ -19,7 +19,7 @@ import {
   findUserById,
   findUserByPhoneNumber,
   updateUser,
-} from '../user/user.service';
+} from '../user/services/index';
 import { validateChangePassword } from './auth.schema';
 import { ZodError } from 'zod';
 import { generateRandomCode } from '../../utils/generateRandomCode';

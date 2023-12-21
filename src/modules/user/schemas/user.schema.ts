@@ -1,5 +1,5 @@
 import { object, string } from 'zod';
-import { emailRegex, onlyLettersRegex, phoneRegex } from '../../utils/regex';
+import { emailRegex, onlyLettersRegex, phoneRegex } from '../../../utils/regex';
 
 export const userUpdateSchema = object({
   body: object({

@@ -2,7 +2,7 @@ import { Prisma, Address } from '@prisma/client';
 import { db } from '../../config/index';
 import { throwError } from '../../utils';
 import httpStatus from 'http-status';
-import { findUserById } from '../user/user.service';
+import { findUserById } from '../user/services';
 
 export interface ICreateAddress {
   id?: string;

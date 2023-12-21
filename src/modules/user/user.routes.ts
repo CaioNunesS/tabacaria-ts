@@ -6,13 +6,13 @@ import {
   findOneByEmail,
   profile,
   updateOne,
-} from './user.controller';
+} from './controller';
 import {
   asyncWrapper,
   isAuthenticated,
   validate,
 } from '../../middleware/index';
-import { userUpdateSchema } from './user.schema';
+import { userUpdateSchema } from './schemas/user.schema';
 
 const userRoutes = Router();
 
