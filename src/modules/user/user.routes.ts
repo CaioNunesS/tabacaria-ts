@@ -6,7 +6,7 @@ import {
   findOneByEmail,
   profile,
   updateOne,
-} from './controller';
+} from './controllers';
 import {
   asyncWrapper,
   isAuthenticated,

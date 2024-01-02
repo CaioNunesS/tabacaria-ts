@@ -1,7 +1,7 @@
 import { db } from '../../config/index';
 import { throwError } from '../../utils/index';
 
-import { findProductById } from '../products/product.service';
+import { findProductById } from '../products/services/';
 import { findCouponById, verifyUserCoupon } from '../coupons/coupon.service';
 import { Orders } from '@prisma/client';
 
