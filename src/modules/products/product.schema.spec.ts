@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { productSchema } from './product.schema';
+import { productSchema } from './schemas';
 
 describe('register product schema', () => {
   describe('when a valid body', () => {

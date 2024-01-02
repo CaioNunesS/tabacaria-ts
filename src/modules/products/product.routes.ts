@@ -1,13 +1,7 @@
 import { Router } from 'express';
-import {
-  create,
-  findById,
-  findAll,
-  deleteOne,
-  updateOne,
-} from './product.controller';
+import { create, findById, findAll, deleteOne, updateOne } from './controllers';
 import { asyncWrapper, validate } from '../../middleware/index';
-import { productSchema, productUpdateSchema } from './product.schema';
+import { productSchema, productUpdateSchema } from './schemas';
 const productRoutes = Router();
 
 productRoutes.post('/', validate(productSchema), asyncWrapper(create));
