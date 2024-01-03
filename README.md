@@ -10,6 +10,7 @@ Docker Desktop 4.26.1
 
 NodeJS versão 16.16
 
+
 __RECURSOS__:
 
 **NodeJS** com **TypeScript**: Aproveitando o poder do TypeScript para um código mais robusto e fácil de manter.
@@ -21,6 +22,7 @@ __RECURSOS__:
 **Login com Google**: Permitindo autenticação do usuário por meio do Google para uma experiência de login sem problemas.
 
 **Testes Unitários com Vitest**: Garantindo qualidade e confiabilidade por meio de testes unitários com Vitest.
+
 
 __COMO USAR__:
 
