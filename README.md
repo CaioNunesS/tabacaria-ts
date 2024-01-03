@@ -23,6 +23,10 @@ __RECURSOS__:
 
 **Testes Unitários com Vitest**: Garantindo qualidade e confiabilidade por meio de testes unitários com Vitest.
 
+**Disparo de emails com Nodemailer**:  Permitindo enviar notificações por email.
+
+**Disparo de sms com Twilio**: Permitindo fazer disparos de sms.
+
 
 __COMO USAR__:
 
