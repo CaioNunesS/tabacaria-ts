@@ -2,7 +2,7 @@
 
 Bem-vindo ao repositório da Tabacaria Online API! Este projeto é o resultado do meu aprendizado em NodeJS e TypeScript, combinando a prática de desenvolvimento de uma API com a aplicação de conceitos avançados. Aqui estão as informações essenciais para começar:
 
-#REQUISITOS:
+__REQUISITOS__:
 
 Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas em seu ambiente de desenvolvimento:
 
@@ -10,7 +10,8 @@ Docker Desktop 4.26.1
 
 NodeJS versão 16.16
 
-#RECURSOS
+__RECURSOS__:
+
 **NodeJS** com **TypeScript**: Aproveitando o poder do TypeScript para um código mais robusto e fácil de manter.
 
 **Framework Express**: Utilizando o framework Express para construir APIs escaláveis e eficientes.
@@ -21,7 +22,7 @@ NodeJS versão 16.16
 
 **Testes Unitários com Vitest**: Garantindo qualidade e confiabilidade por meio de testes unitários com Vitest.
 
-#COMO USAR:
+__COMO USAR__:
 
 Siga estes passos simples para configurar e executar o projeto localmente:
 
