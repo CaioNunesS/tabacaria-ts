@@ -26,31 +26,34 @@ __COMO USAR__:
 
 Siga estes passos simples para configurar e executar o projeto localmente:
 
-1- Clonar o Repositório:
+**1- Clonar o Repositório**:
+
 git clone https://github.com/CaioNunesS/tabacaria-ts.git
 
-2- Iniciar o Projeto na IDE de Preferência:
+**2- Iniciar o Projeto na IDE de Preferência**:
+
 Abra o projeto na sua IDE favorita.
 
-3- Instalar Pacotes:
+**3- Instalar Pacotes:**
 Execute o seguinte comando para instalar as dependências do projeto:
 
 npm i
 
-4- Iniciar o Container no Docker:
+**4- Iniciar o Container no Docker**:
 Utilize o Docker Compose para iniciar o container:
 
 docker-compose up -d
 
-5- Gerar Banco de Dados:
+**5- Gerar Banco de Dados**:
 Execute o seguinte comando para popular o banco de dados com as tabelas criadas:
 
 npx prisma generate dev
 
-6- Criar Arquivo .env:
+**6- Criar Arquivo .env**:
+
 Crie um arquivo .env na raiz do projeto usando como base o .env.example fornecido.
 
-7- Iniciar o Projeto:
+**7- Iniciar o Projeto**:
 Finalmente, inicie o projeto com o seguinte comando:
 
 npm run dev
