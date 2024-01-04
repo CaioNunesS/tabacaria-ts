@@ -4,8 +4,8 @@ import {
   isAuthenticated,
   validate,
 } from '../../middleware/index';
-import { create, findAll, findById } from './order.controller';
-import { orderSchema } from './order.schema';
+import { create, findAll, findById } from './controllers';
+import { orderSchema } from './schemas/createOrder.schema';
 
 const orderRoutes = Router();
 
