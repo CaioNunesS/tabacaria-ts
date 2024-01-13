@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { v4 as uuid } from 'uuid';
-import { ICreateOrder } from '../modules/orders/order.service';
+import { ICreateOrder } from '../modules/orders/services/createOrder.service';
 import { Orders } from '@prisma/client';
 
 export const createDataMock: ICreateOrder = {

@@ -8,7 +8,7 @@
     "migrate:create": "npx prisma migrate dev --name",
     "lint": "eslint \"{src,public,prisma}/**/*.ts\" --fix",
     "swagger-autogen": " node ./src/config/swagger.js",
-    "seed": "node --loader ts-node/esm prisma/seed.ts",
+    "seed": "node --loader ts-node/esm prisma/seed.mjs",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },

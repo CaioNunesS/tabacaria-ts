@@ -1,0 +1,914 @@
+{
+	"info": {
+		"_postman_id": "3106c822-154d-41cf-9bd7-d8d76c1bd8a6",
+		"name": "tabacaria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24664636",
+		"_collection_link": "https://planetary-crescent-751968.postman.co/workspace/New-Team-Workspace~68e7958c-45cd-4109-a817-b1a09a5acdf2/collection/25792580-3106c822-154d-41cf-9bd7-d8d76c1bd8a6?action=share&source=collection_link&creator=24664636"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "OAuthGoogle",
+					"item": [
+						{
+							"name": "getAuthGoogle",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/auth/google",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"google"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "registrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"caiogrb@gmail.comm\",\r\n  \"password\": \"12345678\",\r\n  \"name\": \"Caio 123\",\r\n  \"phoneNumber\": \"11943956694\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"ACCESS_TOKEN\", jsonData.accessToken);\r",
+									"\r",
+									"pm.environment.set(\"REFRESH_TOKEN\", jsonData.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"caiogrb@gmail.comm\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh-token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmZDcwNDlkMy02ZWFmLTRlYzYtOTM5Yy05MTI2MjMzNzNkODEiLCJqd3RJZCI6IjYxNTNkNGM4LTkxOWQtNDA1ZS05Y2Y2LWIyYmVlMDFlZGQxMiIsImlhdCI6MTY5MTQzMjU2MSwiZXhwIjoxNjkxNDQ2OTYxfQ.OY9AcORyE79PlfY1TlFe2SUcNh9ztUN5cr0mHBAkUx8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/refresh-token",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"fd7049d3-6eaf-4ec6-939c-912623373d81\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/logout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send-verificationCode",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phoneNumber\": \"11943956693\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/send-verification-code",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"send-verification-code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"550765\",\r\n    \"email\": \"11943956693\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/verify-code",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"verify-code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\": \"12345678\",\r\n    \"confirmNewPassword\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/change-password/2a104a5a-9039-4934-a200-2cf1f01a28e4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"change-password",
+								"2a104a5a-9039-4934-a200-2cf1f01a28e4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "findOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user/11f9750f-cc40-4471-a4ea-a07e10ef3b2b",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"11f9750f-cc40-4471-a4ea-a07e10ef3b2b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "teste@gamil.co",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findOneByEmail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user?email=caiogrb@gmail.comm",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "caiogrb@gmail.comm"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user/profile",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOne",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/c10326bb-a067-4aec-ab29-b0371d0e8026",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"c10326bb-a067-4aec-ab29-b0371d0e8026"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOne",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user/ca689e14-b2aa-425c-847f-0d5d5a5649f0",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"ca689e14-b2aa-425c-847f-0d5d5a5649f0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"eee\",\r\n    \"price\": \"        40\",\r\n    \"description\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/product",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/product/6dc1cf2f-d966-43d5-a4c7-26c0808520eb",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"product",
+								"6dc1cf2f-d966-43d5-a4c7-26c0808520eb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOneById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Seda Bem Bolado\",\r\n    \"price\": \"\",\r\n    \"description\": \"Pacote com 35 sedas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/product/3014e3a5-db64-4c1f-8270-d004d56a1c00",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"product",
+								"3014e3a5-db64-4c1f-8270-d004d56a1c00"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOneById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/product/44d59e6e-ed9b-4c70-b14c-79c06a3a7254",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"product",
+								"44d59e6e-ed9b-4c70-b14c-79c06a3a7254"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/product",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "file",
+			"item": [
+				{
+					"name": "uploadFile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Caio Nunes/Pictures/bembolado.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/06f7b6dd-19b3-4a48-a239-1c225be1abd7",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"06f7b6dd-19b3-4a48-a239-1c225be1abd7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "viewImage",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": "/C:/Users/Caio Nunes/Pictures/bembolado.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/file/5ff2afd97c7a2e1eabd789dbb7aa95eb.1692194266508.jpeg",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"5ff2afd97c7a2e1eabd789dbb7aa95eb.1692194266508.jpeg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "excludeImage",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/file/b962068ee4f47706ed3389fac8329408.1692194268384.jpeg",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"file",
+								"b962068ee4f47706ed3389fac8329408.1692194268384.jpeg"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "coupon",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/coupon",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"coupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/coupon/6000d884-85e8-49db-b440-deb550f682da",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"coupon",
+								"6000d884-85e8-49db-b440-deb550f682da"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Bem Bolado com nois 8\",\r\n    \"description\": \"50R$ de desconto nas compras acima de 200R$ em todos os produtos Bem Bolado\",\r\n    \"value\": \"20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/coupon",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"coupon"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"products\": [\"d9df737c-fc65-456b-aac8-ea69fcd2bcaa\", \"cf6d3ae3-94ca-4658-aa29-d771ba7b11b9\"],\r\n    \"couponId\": \"58d19a9f-be22-47f8-9782-3d5f0e1a49d8\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/order",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/order",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/order/26b64e0e-a209-469c-9896-86a338044148",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"order",
+								"26b64e0e-a209-469c-9896-86a338044148"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notification",
+			"item": [
+				{
+					"name": "send-sms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Caio\",\r\n    \"phone\": \"+5511943956693\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/notification/send-sms",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"notification",
+								"send-sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send-email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Caio\",\r\n    \"to\": \"caiogrb@gmail.com\",\r\n    \"subject\": \"Testando para ver se funciona\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/notification/send-email",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"notification",
+								"send-email"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "address",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"street\": \"Rua 1\",\r\n    \"city\": \"Barueri\",\r\n    \"state\": \"São Paulo\",\r\n    \"neighborhood\": \"Jardim Esperança\",\r\n    \"number\": \"471a\",\r\n    \"zipCode\": \"0641301\",\r\n    \"AdditionalData\": null,\r\n    \"userId\": \"2a104a5a-9039-4934-a200-2cf1f01a28e4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/address",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findManyByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/address/2a104a5a-9039-4934-a200-2cf1f01a28e4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"address",
+								"2a104a5a-9039-4934-a200-2cf1f01a28e4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"street\": \"Dempachi Nakayama\",\r\n    \"city\": \"Barueri\",\r\n    \"state\": \"São Paulo\",\r\n    \"neighborhood\": \"Jardim Esperança\",\r\n    \"number\": \"472\",\r\n    \"zipCode\": \"06413010\",\r\n    \"AdditionalData\": null,\r\n    \"userId\": \"2a104a5a-9039-4934-a200-2cf1f01a28e4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/address/e8252ee6-e880-40f6-a8dc-bc371f309959",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"address",
+								"e8252ee6-e880-40f6-a8dc-bc371f309959"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/address/e8252ee6-e880-40f6-a8dc-bc371f309959",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"address",
+								"e8252ee6-e880-40f6-a8dc-bc371f309959"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost/api/v1/7070"
+		}
+	]
+}

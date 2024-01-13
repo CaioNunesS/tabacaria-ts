@@ -75,6 +75,7 @@ export const register = async ({
     gitHubId,
     googleId,
   });
+  console.log(user);
 
   if (user) {
     return await returnResponse(user);

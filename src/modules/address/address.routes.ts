@@ -5,7 +5,7 @@ import {
   deleteOne,
   findAddressesByUserId,
   update,
-} from './address.controller';
+} from './controllers';
 import { addressSchema } from './address.schema';
 
 const addressRoutes = Router();

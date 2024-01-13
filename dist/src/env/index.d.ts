@@ -1,0 +1,25 @@
+import 'dotenv/config';
+export declare const env: {
+    NODE_ENV: "development" | "test" | "production";
+    SMTP_HOST: string;
+    SMTP_PORT: string;
+    SMTP_USER: string;
+    SMTP_PASS: string;
+    SMTP_FROM: string;
+    GITHUB_CLIENT_ID: string;
+    GITHUB_CLIENT_SECRET: string;
+    TWILIO_ACCOUNT_SID: string;
+    TWILIO_AUTH_TOKEN: string;
+    TWILIO_PHONE: string;
+    FILE_UPLOAD_SIZE_IN_BYTE: string;
+    PORT: string;
+    DATABASE_URL: string;
+    JWT_REFRESH_SECRET: string;
+    JWT_ACCESS_SECRET: string;
+    URL_IMAGE: string;
+    GOOGLE_CLIENT_ID: string;
+    GOOGLE_CLIENT_SECRET: string;
+    GOOGLE_CALLBACK_URL: string;
+    JWT_KEY: string;
+    SESSION_SECRET: string;
+};

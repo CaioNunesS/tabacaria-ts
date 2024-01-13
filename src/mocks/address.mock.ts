@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { v4 as uuid } from 'uuid';
 import { Address } from '@prisma/client';
-import { ICreateAddress } from '../modules/address/address.service';
+import { ICreateAddress } from '../modules/address/services';
 
 export const createDataMock: ICreateAddress = {
   id: uuid(),

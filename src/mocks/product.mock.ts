@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { v4 as uuid } from 'uuid';
 import { Products } from '@prisma/client';
-import { IcreateProduct } from '../modules/products/product.service';
+import { IcreateProduct } from '../modules/products/services';
 
 export const createDataMock: IcreateProduct = {
   id: uuid(),

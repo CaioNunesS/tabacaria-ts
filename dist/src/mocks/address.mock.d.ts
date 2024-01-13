@@ -1,0 +1,32 @@
+import { Address } from '@prisma/client';
+import { ICreateAddress } from '../modules/address/services';
+export declare const createDataMock: ICreateAddress;
+export declare const queryAddressById: Address;
+export declare const selectMock: {
+    id: boolean;
+    street: boolean;
+    city: boolean;
+    neighborhood: boolean;
+    state: boolean;
+    number: boolean;
+    zipCode: boolean;
+    userId: boolean;
+    active: boolean;
+    AdditionalData: boolean;
+    createdAt: boolean;
+    updatedAt: boolean;
+};
+export declare const addresses: {
+    id: string;
+    street: string;
+    city: string;
+    neighborhood: string;
+    state: string;
+    number: string;
+    zipCode: string;
+    userId: string;
+    active: boolean;
+    AdditionalData: null;
+    createdAt: Date;
+    updatedAt: Date;
+}[];

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { IuserCreate } from '../modules/user/user.service';
+import { IuserCreate } from '../modules/user/services';
 import { hashSync } from 'bcrypt';
 import { v4 as uuid } from 'uuid';
 import { User } from '@prisma/client';

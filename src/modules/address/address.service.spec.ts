@@ -3,7 +3,7 @@ import {
   queryAddressById,
   selectMock,
 } from '../../mocks/address.mock';
-import * as Address from './address.service';
+import * as Address from '../address/services';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { products } from '../../mocks/product.mock';
 
