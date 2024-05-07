@@ -1,6 +1,6 @@
 import { object, string } from 'zod';
-import { emailRegex, onlyLettersRegex, phoneRegex } from '../../utils/regex';
-import { IChangePassword } from '../auth/auth.service';
+import { emailRegex, onlyLettersRegex, phoneRegex } from '../../../utils/regex';
+import { IChangePassword } from '../service';
 
 export const registerSchema = object({
   body: object({

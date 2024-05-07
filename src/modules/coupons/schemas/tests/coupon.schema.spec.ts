@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { couponSchema } from './coupon.schema';
+import { couponSchema } from './schemas/coupon.schema';
 
 describe('register coupon schema', () => {
   describe('when a valid body', () => {

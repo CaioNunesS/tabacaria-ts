@@ -1,5 +1,5 @@
 import { object, string } from 'zod';
-import { onlyNumbersRegex, cepRegex } from '../../utils/regex';
+import { onlyNumbersRegex, cepRegex } from '../../../utils/regex';
 
 export const addressSchema = object({
   body: object({

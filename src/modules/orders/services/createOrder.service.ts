@@ -1,6 +1,6 @@
 import { db } from '../../../config';
 import { throwError } from '../../../utils';
-import { findCouponById, verifyUserCoupon } from '../../coupons/coupon.service';
+import { findCouponById, verifyUserCoupon } from '../../coupons/service';
 import { sumProductsPrice } from './sumProductsPrice.service';
 
 export type ICreateOrder = {

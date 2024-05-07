@@ -1,5 +1,5 @@
 import { object, string } from 'zod';
-import { valueRegex } from '../../utils/regex';
+import { valueRegex } from '../../../utils/regex';
 
 export const couponSchema = object({
   body: object({

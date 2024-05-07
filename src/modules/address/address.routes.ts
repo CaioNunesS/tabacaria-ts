@@ -6,7 +6,7 @@ import {
   findAddressesByUserId,
   update,
 } from './controllers';
-import { addressSchema } from './address.schema';
+import { addressSchema } from './schemas/address.schema';
 
 const addressRoutes = Router();
 

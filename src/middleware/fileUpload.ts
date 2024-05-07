@@ -6,8 +6,6 @@ import { Request } from 'express';
 
 // Importando configurações de ambiente
 import { env } from '../env';
-
-// Importando classe de erro personalizado
 import { AppError } from '../utils/index';
 
 // Configuração de armazenamento em disco para o multer

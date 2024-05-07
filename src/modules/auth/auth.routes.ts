@@ -10,7 +10,7 @@ import {
   revokeRefreshToken,
   sendCode,
   verificationCodeSended,
-} from './auth.controller';
+} from './controller';
 import { handleGoogleAuth } from './OAuth/google/google.controller';
 
 import {
@@ -18,7 +18,7 @@ import {
   loginSchema,
   refreshTokenSchema,
   revokeTokenSchema,
-} from './auth.schema';
+} from './schemas/auth.schema';
 
 const authRoutes = Router();
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addressSchema } from './address.schema';
+import { addressSchema } from './schemas/address.schema';
 
 describe('registering address schema', () => {
   describe('when a valid body', () => {

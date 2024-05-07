@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { asyncWrapper, validate } from '../../middleware/index';
-import { create, findAll, findById } from './coupon.controller';
-import { couponSchema } from './coupon.schema';
+import { create, findAll, findById } from './controllers';
+import { couponSchema } from './schemas/coupon.schema';
 
 const couponRoutes = Router();
 

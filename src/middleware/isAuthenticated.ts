@@ -56,6 +56,5 @@ export const isAuthenticated = (
     }
   }
 
-  // Chamando a próxima função middleware
   return next();
 };

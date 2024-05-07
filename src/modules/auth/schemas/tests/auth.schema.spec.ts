@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { registerSchema, loginSchema } from './auth.schema';
+import { registerSchema, loginSchema } from './schemas/auth.schema';
 
 describe('register user schema', () => {
   describe('when a valid body', () => {
